@@ -2,17 +2,41 @@
 namespace Everyman\Neo4j;
 
 /**
- * Represents a single node in the database
+ * Represents a class in the database
  */
-class Node extends PropertyContainer
+class Classes extends PropertyContainer
 {
 	/**
 	 * @var Label[] Our labels, or `null` if not loaded
 	 */
 	protected $labels = null;
+        
+        protected $name =null;
 
+        /**
+	 * Set class name
+	 *
+	 * @param string $name
+	 */
+	public function setName($name)
+	{
+                if(is_array($name)){
+                    $name = $name[0];
+                }
+		$this->name = $name;
+	}
+        
+        /**
+	 * Get  class name
+	 *
+	 * @param string $name
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
 
-	/**
+        /**
 	 * @inheritdoc
 	 * @param Client $client
 	 * @return Node
@@ -169,9 +193,10 @@ class Node extends PropertyContainer
 	 * @throws Exception on failure
 	 */
 	public function save()
-	{
-		$this->client->saveNode($this);
-		$this->useLazyLoad(false);
+	{   
+                
+		$this->client->saveClass($this);
+		//$this->useLazyLoad(false);
 		return $this;
 	}
 

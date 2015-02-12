@@ -73,20 +73,20 @@ class Curl extends BaseTransport
 				$options[CURLOPT_CUSTOMREQUEST] = $method;
 				$options[CURLOPT_POSTFIELDS] = $dataString;
 				$options[CURLOPT_HTTPHEADER][] = 'Content-Length: '.strlen($dataString);
-
+                                $options[CURLOPT_HTTPHEADER][] = 'Accept-Encoding: gzip,deflate';
 				if (self::POST == $method) {
 					$options[CURLOPT_POST] = true;
 				}
 				break;
 		}
 
-		$ch = $this->getHandle();
+		$ch = $this->getHandle();             
 		curl_setopt_array($ch, $options);
-
+                
 		$response = curl_exec($ch);
 		$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		$headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-
+                     
 		if ($response === false) {
 			throw new Exception("Can't open connection to ".$url);
 		}
@@ -97,7 +97,18 @@ class Curl extends BaseTransport
 			$response = json_encode(array("error"=>curl_error($ch).' ['.curl_errno($ch).']'));
 		}
 
+
 		$bodyString = substr($response, $headerSize);
+
+                $responce_error = explode(':', $bodyString);
+                
+               // print_r($responce_error);
+
+                if(is_array($responce_error) and sizeof($responce_error)>1){
+                    $bodyString = '{"error" : "'.end($responce_error).'"}';                
+                }
+                
+                
 		$bodyData = json_decode($bodyString, true);
 
 		$headerString = substr($response, 0, $headerSize);

@@ -14,7 +14,7 @@ abstract class Transport
 	protected $scheme = 'http';
 	protected $host = 'localhost';
 	protected $port = 7474;
-	protected $path = '/db/data';
+	protected $path = '';
 	protected $username = null;
 	protected $password = null;
 

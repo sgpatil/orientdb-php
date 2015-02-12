@@ -51,7 +51,7 @@ class CreateNode extends Command
 	 */
 	protected function getPath()
 	{
-		return '/node';
+		return '/class/graphdb2/test4';
 	}
 
 	/**
@@ -64,7 +64,8 @@ class CreateNode extends Command
 	 * @throws Exception on failure
 	 */
 	protected function handleResult($code, $headers, $data)
-	{
+	{      
+            
 		if ((int)($code / 100) != 2) {
 			$this->throwException('Unable to create node', $code, $headers, $data);
 		}

@@ -40,7 +40,7 @@ class Client
 	 * @param mixed $transport Transport object or string hostname
 	 * @param integer $port Ignored unless $transport is a hostname
 	 */
-	public function __construct($transport=null, $port=7474)
+	public function __construct($transport=null, $port=2480)
 	{
 		try {
 			if ($transport === null) {
@@ -581,6 +581,25 @@ class Client
 		}
 		return $node->setProperties($properties);
 	}
+        
+        /**
+	 * Create a new class object bound to this client
+	 *
+	 * @param array $properties
+	 * @throws Exception
+	 * @return Node
+	 */
+	public function makeClass($name, $properties=array())
+	{
+            $class = new Classes($this, $properties);
+            
+		if (!($class instanceof Classes)) {
+			throw new Exception('Node factory did not return a Classes object.');
+		}
+                $class->setName($name);
+                return $class;
+		//return $class->setProperties($properties);
+	}
 
 	/**
 	 * Create a new relationship object bound to this client
@@ -689,6 +708,26 @@ class Client
 			return $this->runCommand(new Command\UpdateNode($this, $node));
 		} else {
 			return $this->runCommand(new Command\CreateNode($this, $node));
+		}
+	}
+        
+        /**
+	 * Save the given node
+	 *
+	 * @param Node $node
+	 * @return boolean
+	 */
+	public function saveClass(Classes $class)
+	{
+		if ($this->openBatch) {
+			$this->openBatch->save($class);
+			return true;
+		}
+
+		if ($class->hasId()) {
+			return $this->runCommand(new Command\UpdateClass($this, $class));
+		} else {
+			return $this->runCommand(new Command\CreateClass($this, $class));
 		}
 	}
 

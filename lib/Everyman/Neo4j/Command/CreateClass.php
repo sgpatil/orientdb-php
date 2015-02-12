@@ -3,13 +3,12 @@ namespace Everyman\Neo4j\Command;
 
 use Everyman\Neo4j\Command,
 	Everyman\Neo4j\Client,
-	Everyman\Neo4j\Exception,
-	Everyman\Neo4j\Node;
+	Everyman\Neo4j\Classes;
 
 /**
- * Delete a node
+ * Create a class
  */
-class DeleteNode extends Command
+class CreateClass extends Command
 {
 	protected $node = null;
 
@@ -19,7 +18,7 @@ class DeleteNode extends Command
 	 * @param Client $client
 	 * @param Node $node
 	 */
-	public function __construct(Client $client, Node $node)
+	public function __construct(Client $client, Classes $node)
 	{
 		parent::__construct($client);
 		$this->node = $node;
@@ -32,7 +31,17 @@ class DeleteNode extends Command
 	 */
 	protected function getData()
 	{
-		return null;
+		return $this->node->getProperties() ?: null;
+	}
+        
+        /**
+	 * Return the data to pass
+	 *
+	 * @return mixed
+	 */
+	protected function getName()
+	{
+		return $this->node->getName();
 	}
 
 	/**
@@ -42,7 +51,7 @@ class DeleteNode extends Command
 	 */
 	protected function getMethod()
 	{
-		return 'delete';
+		return 'post';
 	}
 
 	/**
@@ -52,10 +61,7 @@ class DeleteNode extends Command
 	 */
 	protected function getPath()
 	{
-		if (!$this->node->hasId()) {
-			throw new Exception('No node id specified for delete');
-		}
-		return '/node/'.$this->node->getId();
+		return '/class/graphdb2/'.$this->getName();
 	}
 
 	/**
@@ -68,12 +74,15 @@ class DeleteNode extends Command
 	 * @throws Exception on failure
 	 */
 	protected function handleResult($code, $headers, $data)
-	{
-		if ((int)($code / 100) == 2) {
-			$this->getEntityCache()->deleteCachedEntity($this->node);
-			return true;
-		} else {
-			$this->throwException('Unable to delete node', $code, $headers, $data);
+	{      
+            
+		if ((int)($code / 100) != 2) {
+			$this->throwError('Unable to create Class', $code, $headers, $data);
 		}
+
+		//$nodeId = $this->getEntityMapper()->getIdFromUri($headers['Location']);
+		//$this->node->setId($nodeId);
+		//$this->getEntityCache()->setCachedEntity($this->node);
+		return true;
 	}
 }

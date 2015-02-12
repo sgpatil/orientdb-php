@@ -10,6 +10,6 @@ class Version
 
 	public static function userAgent()
 	{
-		return 'neo4jphp/'.self::CURRENT;
+		return 'orintdb-php/'.self::CURRENT;
 	}
 }
