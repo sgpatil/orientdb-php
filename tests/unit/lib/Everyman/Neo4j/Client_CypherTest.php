@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class Client_CypherTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,7 +9,7 @@ class Client_CypherTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->transport = $this->getMock('Everyman\Neo4j\Transport');
+		$this->transport = $this->getMock('Sgpatil\Orientphp\Transport');
 		$this->transport->expects($this->any())
 			->method('getEndpoint')
 			->will($this->returnValue($this->endpoint));
@@ -43,7 +43,7 @@ class Client_CypherTest extends \PHPUnit_Framework_TestCase
 		$query = new Cypher\Query($this->client, $props['query'], $props['params']);
 
 		$result = $this->client->executeCypherQuery($query);
-		$this->assertInstanceOf('\Everyman\Neo4j\Query\ResultSet', $result);
+		$this->assertInstanceOf('\Sgpatil\Orientphp\Query\ResultSet', $result);
 		$this->assertEquals(count($result), $resultCount);
 	}
 
@@ -72,7 +72,7 @@ class Client_CypherTest extends \PHPUnit_Framework_TestCase
 		$query = new Cypher\Query($this->client, $props['query'], $props['params']);
 
 		$result = $this->client->executeCypherQuery($query);
-		$this->assertInstanceOf('\Everyman\Neo4j\Query\ResultSet', $result);
+		$this->assertInstanceOf('\Sgpatil\Orientphp\Query\ResultSet', $result);
 		$this->assertEquals(count($result), $resultCount);
 	}
 
@@ -83,7 +83,7 @@ class Client_CypherTest extends \PHPUnit_Framework_TestCase
 	public function testCypherQuery_ProxyHost($returnValue, $resultCount)
 	{
 		$proxyEndpoint = 'http://proxy.me:1234/db/data';
-		$transport = $this->getMock('Everyman\Neo4j\Transport');
+		$transport = $this->getMock('Sgpatil\Orientphp\Transport');
 		$transport->expects($this->any())
 			->method('getEndpoint')
 			->will($this->returnValue($proxyEndpoint));
@@ -109,7 +109,7 @@ class Client_CypherTest extends \PHPUnit_Framework_TestCase
 		$query = new Cypher\Query($client, $props['query'], $props['params']);
 
 		$result = $client->executeCypherQuery($query);
-		$this->assertInstanceOf('\Everyman\Neo4j\Query\ResultSet', $result);
+		$this->assertInstanceOf('\Sgpatil\Orientphp\Query\ResultSet', $result);
 		$this->assertEquals(count($result), $resultCount);
 	}
 
@@ -152,7 +152,7 @@ class Client_CypherTest extends \PHPUnit_Framework_TestCase
 
 		$query = new Cypher\Query($this->client, $props['query']);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');
 		$this->client->executeCypherQuery($query);
 	}
 
@@ -169,7 +169,7 @@ class Client_CypherTest extends \PHPUnit_Framework_TestCase
 
 		$query = new Cypher\Query($this->client, 'query');
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');
 		$this->client->executeCypherQuery($query);
 	}
 }

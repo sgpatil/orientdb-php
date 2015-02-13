@@ -1,7 +1,7 @@
 <?php
-namespace Everyman\Neo4j\Query;
+namespace Sgpatil\Orientphp\Query;
 
-use Everyman\Neo4j\Client;
+use Sgpatil\Orientphp\Client;
 
 class ResultSetTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,7 +9,7 @@ class ResultSetTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->client = new Client($this->getMock('Everyman\Neo4j\Transport'));
+		$this->client = new Client($this->getMock('Sgpatil\Orientphp\Transport'));
 	}
 
 	public function testCount()

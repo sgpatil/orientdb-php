@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class Client_PathTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,7 +9,7 @@ class Client_PathTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->transport = $this->getMock('Everyman\Neo4j\Transport');
+		$this->transport = $this->getMock('Sgpatil\Orientphp\Transport');
 		$this->transport->expects($this->any())
 			->method('getEndpoint')
 			->will($this->returnValue($this->endpoint));
@@ -62,39 +62,39 @@ class Client_PathTest extends \PHPUnit_Framework_TestCase
 			
 		$paths = $this->client->getPaths($finder);
 		$this->assertEquals(2, count($paths));
-		$this->assertInstanceOf('Everyman\Neo4j\Path', $paths[0]);
-		$this->assertInstanceOf('Everyman\Neo4j\Path', $paths[1]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Path', $paths[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Path', $paths[1]);
 		
 		$rels = $paths[0]->getRelationships();
 		$this->assertEquals(2, count($rels));
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $rels[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $rels[0]);
 		$this->assertEquals(564, $rels[0]->getId());
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $rels[1]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $rels[1]);
 		$this->assertEquals(32, $rels[1]->getId());
 
 		$nodes = $paths[0]->getNodes();
 		$this->assertEquals(3, count($nodes));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[0]);
 		$this->assertEquals(123, $nodes[0]->getId());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[1]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[1]);
 		$this->assertEquals(341, $nodes[1]->getId());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[2]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[2]);
 		$this->assertEquals(456, $nodes[2]->getId());
 		
 		$rels = $paths[1]->getRelationships();
 		$this->assertEquals(2, count($rels));
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $rels[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $rels[0]);
 		$this->assertEquals(437, $rels[0]->getId());
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $rels[1]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $rels[1]);
 		$this->assertEquals(97, $rels[1]->getId());
 
 		$nodes = $paths[1]->getNodes();
 		$this->assertEquals(3, count($nodes));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[0]);
 		$this->assertEquals(123, $nodes[0]->getId());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[1]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[1]);
 		$this->assertEquals(41, $nodes[1]->getId());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[2]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[2]);
 		$this->assertEquals(456, $nodes[2]->getId());
 	}
 	
@@ -142,7 +142,7 @@ class Client_PathTest extends \PHPUnit_Framework_TestCase
 			->setStartNode($startNode)
 			->setEndNode($endNode);
 		
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$paths = $this->client->getPaths($finder);
 	}
 	
@@ -156,7 +156,7 @@ class Client_PathTest extends \PHPUnit_Framework_TestCase
 		$finder->setStartNode($startNode)
 			->setEndNode($endNode);
 		
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$paths = $this->client->getPaths($finder);
 	}
 	
@@ -170,7 +170,7 @@ class Client_PathTest extends \PHPUnit_Framework_TestCase
 		$finder->setStartNode($startNode)
 			->setEndNode($endNode);
 		
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$paths = $this->client->getPaths($finder);
 	}
 	
@@ -186,7 +186,7 @@ class Client_PathTest extends \PHPUnit_Framework_TestCase
 			->setEndNode($endNode)
 			->setAlgorithm(PathFinder::AlgoDijkstra);
 		
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$paths = $this->client->getPaths($finder);
 	}
 	
@@ -244,7 +244,7 @@ class Client_PathTest extends \PHPUnit_Framework_TestCase
 			->method('post')
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->getPaths($finder);
 	}
 }

@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class PagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,7 +11,7 @@ class PagerTest extends \PHPUnit_Framework_TestCase
 	
 	public function setUp()
 	{
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array(), array(), '', false);
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array(), array(), '', false);
 		$this->traversal = new Traversal($this->client);
 
 		$this->node = new Node($this->client);

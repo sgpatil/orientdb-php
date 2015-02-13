@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class Client_Batch_RelationshipTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,7 +10,7 @@ class Client_Batch_RelationshipTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->transport = $this->getMock('Everyman\Neo4j\Transport');
+		$this->transport = $this->getMock('Sgpatil\Orientphp\Transport');
 		$this->transport->expects($this->any())
 			->method('getEndpoint')
 			->will($this->returnValue($this->endpoint));
@@ -295,7 +295,7 @@ class Client_Batch_RelationshipTest extends \PHPUnit_Framework_TestCase
 		$this->setupTransportExpectation($request, $this->returnValue($return));
 
 		$batch = $this->client->startBatch();
-		$this->assertInstanceOf('Everyman\Neo4j\Batch', $batch);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Batch', $batch);
 
 		$startNode->save();
 		$endNode->save();

@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class PropertyContainerTest extends \PHPUnit_Framework_TestCase
 {
@@ -8,8 +8,8 @@ class PropertyContainerTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array(), array(), '', false);
-		$this->entity = $this->getMock('Everyman\Neo4j\PropertyContainer',
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array(), array(), '', false);
+		$this->entity = $this->getMock('Sgpatil\Orientphp\PropertyContainer',
 			array('delete','save','load'), array($this->client));
 	}
 	

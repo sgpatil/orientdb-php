@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j\Cache;
+namespace Sgpatil\Orientphp\Cache;
 
 class MemcachedTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,11 +1,11 @@
 #!/usr/bin/env php
 <?php
-use Everyman\Neo4j\Client,
-    Everyman\Neo4j\Index\NodeIndex,
-    Everyman\Neo4j\Index\RelationshipIndex,
-    Everyman\Neo4j\Index\NodeFulltextIndex,
-    Everyman\Neo4j\Node,
-    Everyman\Neo4j\Batch;
+use Sgpatil\Orientphp\Client,
+    Sgpatil\Orientphp\Index\NodeIndex,
+    Sgpatil\Orientphp\Index\RelationshipIndex,
+    Sgpatil\Orientphp\Index\NodeFulltextIndex,
+    Sgpatil\Orientphp\Node,
+    Sgpatil\Orientphp\Batch;
 
 require_once 'example_bootstrap.php';
 

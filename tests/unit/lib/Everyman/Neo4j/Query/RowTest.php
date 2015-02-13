@@ -1,9 +1,9 @@
 <?php
-namespace Everyman\Neo4j\Query;
+namespace Sgpatil\Orientphp\Query;
 
-use Everyman\Neo4j\Client,
-    Everyman\Neo4j\Node,
-    Everyman\Neo4j\Relationship;
+use Sgpatil\Orientphp\Client,
+    Sgpatil\Orientphp\Node,
+    Sgpatil\Orientphp\Relationship;
 
 class RowTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,7 +11,7 @@ class RowTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->client = new Client($this->getMock('Everyman\Neo4j\Transport', array(), array(), '', false));
+		$this->client = new Client($this->getMock('Sgpatil\Orientphp\Transport', array(), array(), '', false));
 	}
 	
 	public function testCount()
@@ -157,11 +157,11 @@ class RowTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$row = new Row($this->client, $columns, $data);
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $row['a']);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $row['a']);
 
-		$this->assertInstanceOf('Everyman\Neo4j\Query\Row', $row['b']);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Query\Row', $row['b']);
 		foreach ($row['b'] as $innerValue) {
-			$this->assertInstanceOf('Everyman\Neo4j\Node', $innerValue);
+			$this->assertInstanceOf('Sgpatil\Orientphp\Node', $innerValue);
 		}
 
 		$this->assertEquals($data[1][1]['data']['name'], $row['b'][1]->getProperty('name'));

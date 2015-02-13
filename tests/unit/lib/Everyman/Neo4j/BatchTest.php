@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class BatchTest extends \PHPUnit_Framework_TestCase
 {
@@ -8,7 +8,7 @@ class BatchTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array(), array(), '', false);
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array(), array(), '', false);
 		$this->batch = new Batch($this->client);
 	}
 
@@ -43,7 +43,7 @@ class BatchTest extends \PHPUnit_Framework_TestCase
 			->method('commitBatch');
 
 		$this->batch->commit();
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->batch->commit();
 	}
 
@@ -181,7 +181,7 @@ class BatchTest extends \PHPUnit_Framework_TestCase
 		$opId = $this->batch->save($nodeA);
 
 		$reservation = $this->batch->reserve($opId);
-		$this->assertInstanceOf('Everyman\Neo4j\Batch\Operation', $reservation);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Batch\Operation', $reservation);
 
 		$saveMatch = new Batch\Save($this->batch, $nodeA, 123);
 		$this->assertEquals($saveMatch->matchId(), $reservation->matchId());

@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class LabelTest extends \PHPUnit_Framework_TestCase
 {
@@ -7,7 +7,7 @@ class LabelTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->client = $this->getMock('Everyman\Neo4j\Client');
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client');
 	}
 
 	public function dataProvider_ValidNames()

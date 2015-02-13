@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class Client_IndexTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,7 +9,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->transport = $this->getMock('Everyman\Neo4j\Transport');
+		$this->transport = $this->getMock('Sgpatil\Orientphp\Transport');
 		$this->transport->expects($this->any())
 			->method('getEndpoint')
 			->will($this->returnValue($this->endpoint));
@@ -19,14 +19,14 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 	public function testSaveIndex_UnknownIndexType_ThrowsException()
 	{
 		$index = new Index($this->client, 'FOO', 'indexname');
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->saveIndex($index);
 	}
 
 	public function testSaveIndex_NoName_ThrowsException()
 	{
 		$index = new Index($this->client, Index::TypeNode, null);
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->saveIndex($index);
 	}
 
@@ -69,21 +69,21 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 			))
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->saveIndex($index);
 	}
 
 	public function testDeleteIndex_UnknownIndexType_ThrowsException()
 	{
 		$index = new Index($this->client, 'FOO', 'indexname');
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->deleteIndex($index);
 	}
 
 	public function testDeleteIndex_NoName_ThrowsException()
 	{
 		$index = new Index($this->client, Index::TypeNode, null);
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->deleteIndex($index);
 	}
 
@@ -111,7 +111,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 			->with('/index/node/somekey')
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->deleteIndex($index);
 	}
 
@@ -144,7 +144,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$index = new Index($this->client, 'FOO', 'indexname');
 		$node = new Node($this->client);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->addToIndex($index, $node, 'somekey', 'somevalue');
 	}
 
@@ -153,7 +153,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$index = new Index($this->client, Index::TypeNode, null);
 		$node = new Node($this->client);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->addToIndex($index, $node, 'somekey', 'somevalue');
 	}
 
@@ -162,7 +162,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$index = new Index($this->client, Index::TypeRelationship, 'indexname');
 		$node = new Node($this->client);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');
 		$this->client->addToIndex($index, $node, 'somekey', 'somevalue');
 	}
 
@@ -223,7 +223,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 			->with('/index/node/indexname', $data)
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->addToIndex($index, $node, 'somekey', 'somevalue');
 	}
 
@@ -233,7 +233,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$node = new Node($this->client);
 		$node->setId(123);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->addToIndex($index, $node, 'somekey', 'somevalue');
 	}
 
@@ -242,7 +242,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$index = new Index($this->client, Index::TypeNode, 'indexname');
 		$node = new Node($this->client);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->addToIndex($index, $node, 'somekey', 'somevalue');
 	}
 
@@ -252,7 +252,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$node = new Node($this->client);
 		$node->setId(123);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->addToIndex($index, $node, 'somekey', 'somevalue');
 	}
 
@@ -262,7 +262,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$node = new Node($this->client);
 		$node->setId(123);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->addToIndex($index, $node, null, 'somevalue');
 	}
 
@@ -272,7 +272,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$node = new Node($this->client);
 		$node->setId(123);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->addToIndex($index, $node, 'somekey', 'somevalue');
 	}
 
@@ -282,7 +282,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$rel = new Relationship($this->client);
 		$rel->setId(123);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->addToIndex($index, $rel, 'somekey', 'somevalue');
 	}
 
@@ -324,7 +324,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 			->with('/index/node/indexname/somekey/somevalue/123')
 			->will($this->returnValue(array('code'=>404)));
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->removeFromIndex($index, $node, 'somekey', 'somevalue');
 	}
 
@@ -339,7 +339,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 			->with('/index/node/indexname/somekey/somevalue/123')
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->removeFromIndex($index, $node, 'somekey', 'somevalue');
 	}
 
@@ -349,7 +349,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$node = new Node($this->client);
 		$node->setId(123);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->removeFromIndex($index, $node);
 	}
 
@@ -358,7 +358,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$index = new Index($this->client, Index::TypeNode, 'indexname');
 		$node = new Node($this->client);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->removeFromIndex($index, $node);
 	}
 
@@ -368,7 +368,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$node = new Node($this->client);
 		$node->setId(123);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->removeFromIndex($index, $node);
 	}
 
@@ -378,7 +378,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$node = new Node($this->client);
 		$node->setId(123);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->removeFromIndex($index, $node);
 	}
 
@@ -388,7 +388,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$rel = new Relationship($this->client);
 		$rel->setId(123);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->removeFromIndex($index, $rel);
 	}
 
@@ -396,7 +396,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 	{
 		$index = new Index($this->client, 'badtype', 'indexname');
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->searchIndex($index, 'somekey', 'somevalue');
 	}
 
@@ -404,7 +404,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 	{
 		$index = new Index($this->client, Index::TypeNode, null);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->searchIndex($index, 'somekey', 'somevalue');
 	}
 
@@ -412,7 +412,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 	{
 		$index = new Index($this->client, Index::TypeNode, 'indexname');
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->searchIndex($index, null, 'somevalue');
 	}
 
@@ -425,7 +425,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 			->with('/index/node/indexname/somekey/somevalue')
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->searchIndex($index, 'somekey', 'somevalue');
 	}
 
@@ -452,11 +452,11 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$result = $this->client->searchIndex($index, 'somekey', 'somevalue');
 		$this->assertEquals(2, count($result));
 
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[0]);
 		$this->assertEquals(123, $result[0]->getId());
 		$this->assertEquals(array('foo'=>'bar'), $result[0]->getProperties());
 
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[1]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[1]);
 		$this->assertEquals(456, $result[1]->getId());
 		$this->assertEquals(array('baz'=>'qux'), $result[1]->getProperties());
 	}
@@ -483,13 +483,13 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$result = $this->client->searchIndex($index, 'somekey', 'somevalue');
 		$this->assertEquals(1, count($result));
 
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $result[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $result[0]);
 		$this->assertEquals(789, $result[0]->getId());
 		$this->assertEquals(array('foo'=>'bar'), $result[0]->getProperties());
 
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[0]->getStartNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[0]->getStartNode());
 		$this->assertEquals(123, $result[0]->getStartNode()->getId());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[0]->getEndNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[0]->getEndNode());
 		$this->assertEquals(456, $result[0]->getEndNode()->getId());
 	}
 
@@ -520,7 +520,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 	{
 		$index = new Index($this->client, 'badtype', 'indexname');
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->queryIndex($index, 'somekey:somevalue*');
 	}
 
@@ -529,7 +529,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 	{
 		$index = new Index($this->client, Index::TypeNode, null);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->queryIndex($index, 'somekey:somevalue*');
 	}
 
@@ -538,7 +538,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 	{
 		$index = new Index($this->client, Index::TypeNode, 'indexname');
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->queryIndex($index, null);
 	}
 
@@ -552,7 +552,7 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 			->with('/index/node/indexname?query='.rawurlencode('somekey:somevalue*'))
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');
 		$this->client->queryIndex($index, 'somekey:somevalue*');
 	}
 
@@ -580,11 +580,11 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$result = $this->client->queryIndex($index, 'somekey:somevalue*');
 		$this->assertEquals(2, count($result));
 
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[0]);
 		$this->assertEquals(123, $result[0]->getId());
 		$this->assertEquals(array('foo'=>'bar'), $result[0]->getProperties());
 
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[1]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[1]);
 		$this->assertEquals(456, $result[1]->getId());
 		$this->assertEquals(array('baz'=>'qux'), $result[1]->getProperties());
 	}
@@ -612,13 +612,13 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$result = $this->client->queryIndex($index, 'somekey:somevalue*');
 		$this->assertEquals(1, count($result));
 
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $result[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $result[0]);
 		$this->assertEquals(789, $result[0]->getId());
 		$this->assertEquals(array('foo'=>'bar'), $result[0]->getProperties());
 
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[0]->getStartNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[0]->getStartNode());
 		$this->assertEquals(123, $result[0]->getStartNode()->getId());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[0]->getEndNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[0]->getEndNode());
 		$this->assertEquals(456, $result[0]->getEndNode()->getId());
 	}
 		
@@ -629,13 +629,13 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 			->with('/index/node')
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$results = $this->client->getIndexes(Index::TypeNode);
 	}
 
 	public function testGetIndexes_BadType_ThrowsException()
 	{
-		$this->setExpectedException('\Everyman\Neo4j\Exception');			
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');			
 		$this->client->getIndexes('foo');
 	}
 
@@ -676,12 +676,12 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$results = $this->client->getIndexes(Index::TypeNode);
 		$this->assertEquals(2, count($results));
 
-		$this->assertInstanceOf('Everyman\Neo4j\Index', $results[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Index', $results[0]);
 		$this->assertEquals(Index::TypeNode, $results[0]->getType());
 		$this->assertEquals('favorites', $results[0]->getName());
 		$this->assertEquals($favoritesConfig, $results[0]->getConfig());
 
-		$this->assertInstanceOf('Everyman\Neo4j\Index', $results[1]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Index', $results[1]);
 		$this->assertEquals(Index::TypeNode, $results[1]->getType());
 		$this->assertEquals('users', $results[1]->getName());
 		$this->assertEquals($usersConfig, $results[1]->getConfig());
@@ -700,11 +700,11 @@ class Client_IndexTest extends \PHPUnit_Framework_TestCase
 		$results = $this->client->getIndexes(Index::TypeRelationship);
 		$this->assertEquals(2, count($results));
 
-		$this->assertInstanceOf('Everyman\Neo4j\Index', $results[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Index', $results[0]);
 		$this->assertEquals(Index::TypeRelationship, $results[0]->getType());
 		$this->assertEquals('favorites', $results[0]->getName());
 
-		$this->assertInstanceOf('Everyman\Neo4j\Index', $results[1]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Index', $results[1]);
 		$this->assertEquals(Index::TypeRelationship, $results[1]->getType());
 		$this->assertEquals('users', $results[1]->getName());
 	}

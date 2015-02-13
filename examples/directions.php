@@ -1,11 +1,11 @@
 #!/usr/bin/env php
 <?php
-use Everyman\Neo4j\Client,
-	Everyman\Neo4j\Index\NodeIndex,
-	Everyman\Neo4j\Path,
-	Everyman\Neo4j\PathFinder,
-	Everyman\Neo4j\Relationship,
-	Everyman\Neo4j\Node;
+use Sgpatil\Orientphp\Client,
+	Sgpatil\Orientphp\Index\NodeIndex,
+	Sgpatil\Orientphp\Path,
+	Sgpatil\Orientphp\PathFinder,
+	Sgpatil\Orientphp\Relationship,
+	Sgpatil\Orientphp\Node;
 
 require_once 'example_bootstrap.php';
 

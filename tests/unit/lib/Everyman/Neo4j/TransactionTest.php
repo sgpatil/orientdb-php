@@ -1,8 +1,8 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
-use Everyman\Neo4j\Cypher\Query,
-    Everyman\Neo4j\Query\ResultSet;
+use Sgpatil\Orientphp\Cypher\Query,
+    Sgpatil\Orientphp\Query\ResultSet;
 
 class TransactionTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,7 +12,7 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->client = $this->getMock('Everyman\Neo4j\Client');
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client');
 		$this->transaction = new Transaction($this->client);
 		$this->transaction->setId($this->transactionId);
 	}
@@ -63,13 +63,13 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
 	{
 		$result = $this->transaction->commit();
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception', 'already closed');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception', 'already closed');
 		$this->transaction->commit();
 	}
 
 	public function testCommit_ClientException_MarksTransactionClosedAndErrorAndThrowsException()
 	{
-		$exception = new \Everyman\Neo4j\Exception('some client error');
+		$exception = new \Sgpatil\Orientphp\Exception('some client error');
 
 		$this->client->expects($this->any())
 			->method('addStatementsToTransaction')
@@ -78,7 +78,7 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
 		try {
 			$this->transaction->commit();
 			$this->fail('Expected exception not thrown');
-		} catch (\Everyman\Neo4j\Exception $e) {
+		} catch (\Sgpatil\Orientphp\Exception $e) {
 			self::assertSame($exception, $e);
 			self::assertTrue($this->transaction->isClosed());
 			self::assertTrue($this->transaction->isError());
@@ -112,13 +112,13 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
 	{
 		$result = $this->transaction->commit();
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception', 'already closed');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception', 'already closed');
 		$this->transaction->rollback();
 	}
 
 	public function testRollback_ClientException_MarksTransactionClosedAndErrorAndThrowsException()
 	{
-		$exception = new \Everyman\Neo4j\Exception('some client error');
+		$exception = new \Sgpatil\Orientphp\Exception('some client error');
 
 		$this->client->expects($this->any())
 			->method('rollbackTransaction')
@@ -127,7 +127,7 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
 		try {
 			$this->transaction->rollback();
 			$this->fail('Expected exception not thrown');
-		} catch (\Everyman\Neo4j\Exception $e) {
+		} catch (\Sgpatil\Orientphp\Exception $e) {
 			self::assertSame($exception, $e);
 			self::assertTrue($this->transaction->isClosed());
 			self::assertTrue($this->transaction->isError());
@@ -161,13 +161,13 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
 	{
 		$result = $this->transaction->commit();
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception', 'already closed');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception', 'already closed');
 		$this->transaction->keepAlive();
 	}
 
 	public function testKeepAlive_ClientException_MarksTransactionClosedAndErrorAndThrowsException()
 	{
-		$exception = new \Everyman\Neo4j\Exception('some client error');
+		$exception = new \Sgpatil\Orientphp\Exception('some client error');
 
 		$this->client->expects($this->any())
 			->method('addStatementsToTransaction')
@@ -176,7 +176,7 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
 		try {
 			$this->transaction->keepAlive();
 			$this->fail('Expected exception not thrown');
-		} catch (\Everyman\Neo4j\Exception $e) {
+		} catch (\Sgpatil\Orientphp\Exception $e) {
 			self::assertSame($exception, $e);
 			self::assertTrue($this->transaction->isClosed());
 			self::assertTrue($this->transaction->isError());
@@ -259,7 +259,7 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
 	{
 		$result = $this->transaction->commit();
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception', 'already closed');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception', 'already closed');
 		$this->transaction->addStatements(array(
 			new Query($this->client, 'foo'),
 			new Query($this->client, 'bar'),
@@ -268,7 +268,7 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
 
 	public function testAddStatements_ClientException_MarksTransactionClosedAndErrorAndThrowsException()
 	{
-		$exception = new \Everyman\Neo4j\Exception('some client error');
+		$exception = new \Sgpatil\Orientphp\Exception('some client error');
 
 		$this->client->expects($this->any())
 			->method('addStatementsToTransaction')
@@ -277,7 +277,7 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
 		try {
 			$this->transaction->addStatements(array(new Query($this->client, 'foo')));
 			$this->fail('Expected exception not thrown');
-		} catch (\Everyman\Neo4j\Exception $e) {
+		} catch (\Sgpatil\Orientphp\Exception $e) {
 			self::assertSame($exception, $e);
 			self::assertTrue($this->transaction->isClosed());
 			self::assertTrue($this->transaction->isError());

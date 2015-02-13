@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class TransportTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,7 +10,7 @@ class TransportTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->transport = $this->getMock('Everyman\Neo4j\Transport', array('makeRequest'), array($this->host, $this->port));
+		$this->transport = $this->getMock('Sgpatil\Orientphp\Transport', array('makeRequest'), array($this->host, $this->port));
 	}
 
 	public function testConstants_MakeSureNothingSillyHappensLikeMisnamingTheConstants_ReturnsCorrectString()

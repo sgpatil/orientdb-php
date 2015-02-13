@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class Client_GremlinTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,8 +9,8 @@ class Client_GremlinTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->transport = $this->getMock('Everyman\Neo4j\Transport');
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array('getServerInfo'), array($this->transport));
+		$this->transport = $this->getMock('Sgpatil\Orientphp\Transport');
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array('getServerInfo'), array($this->transport));
 		$this->client->expects($this->any())
 			->method('getServerInfo')
 			->will($this->returnValue(array(
@@ -35,7 +35,7 @@ class Client_GremlinTest extends \PHPUnit_Framework_TestCase
 			->with('/ext/GremlinPlugin/graphdb/execute_script', $props)
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');
 		$this->client->executeGremlinQuery($query);
 	}
 
@@ -60,7 +60,7 @@ class Client_GremlinTest extends \PHPUnit_Framework_TestCase
 			))));
 
 		$result = $this->client->executeGremlinQuery($query);
-		$this->assertInstanceOf('Everyman\Neo4j\Query\ResultSet', $result);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Query\ResultSet', $result);
 		$this->assertEquals('Brenda', $result[2]['name']);
 	}
 
@@ -79,8 +79,8 @@ class Client_GremlinTest extends \PHPUnit_Framework_TestCase
 			))));
 
 		$result = $this->client->executeGremlinQuery($query);
-		$this->assertInstanceOf('Everyman\Neo4j\Query\ResultSet', $result);
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[1][0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Query\ResultSet', $result);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[1][0]);
 		$this->assertEquals(2, $result[1][0]->getId());
 	}
 
@@ -98,8 +98,8 @@ class Client_GremlinTest extends \PHPUnit_Framework_TestCase
 			))));
 
 		$result = $this->client->executeGremlinQuery($query);
-		$this->assertInstanceOf('Everyman\Neo4j\Query\ResultSet', $result);
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[0][0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Query\ResultSet', $result);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[0][0]);
 		$this->assertEquals(2, $result[0][0]->getId());
 	}
 
@@ -114,13 +114,13 @@ class Client_GremlinTest extends \PHPUnit_Framework_TestCase
 			->will($this->returnValue(array('code'=>200,'data'=>"this is some scalar value")));
 
 		$result = $this->client->executeGremlinQuery($query);
-		$this->assertInstanceOf('Everyman\Neo4j\Query\ResultSet', $result);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Query\ResultSet', $result);
 		$this->assertEquals("this is some scalar value", $result[0][0]);
 	}
 
 	public function testGremlinQuery_GremlinNotAvailable_ThrowsException()
 	{
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array('getServerInfo'), array($this->transport));
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array('getServerInfo'), array($this->transport));
 		$this->client->expects($this->any())
 			->method('getServerInfo')
 			->will($this->returnValue(array('extensions' => array())));
@@ -131,7 +131,7 @@ class Client_GremlinTest extends \PHPUnit_Framework_TestCase
 		$props = array('script' => 'i=g.foo();');
 		$query = new Gremlin\Query($this->client, $props['script']);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');
 		$this->client->executeGremlinQuery($query);
 	}
 }

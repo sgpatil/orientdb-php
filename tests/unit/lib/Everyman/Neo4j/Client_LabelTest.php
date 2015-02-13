@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class Client_LabelTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,11 +9,11 @@ class Client_LabelTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->transport = $this->getMock('Everyman\Neo4j\Transport');
+		$this->transport = $this->getMock('Sgpatil\Orientphp\Transport');
 		$this->transport->expects($this->any())
 			->method('getEndpoint')
 			->will($this->returnValue($this->endpoint));
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array('getServerInfo'), array($this->transport));
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array('getServerInfo'), array($this->transport));
 		$this->client->expects($this->any())
 			->method('getServerInfo')
 			->will($this->returnValue(array(
@@ -34,10 +34,10 @@ class Client_LabelTest extends \PHPUnit_Framework_TestCase
 		$labelA = $this->client->makeLabel($labelNameA);
 		$labelB = $this->client->makeLabel($labelNameB);
 
-		self::assertInstanceOf('Everyman\Neo4j\Label', $labelA);
+		self::assertInstanceOf('Sgpatil\Orientphp\Label', $labelA);
 		self::assertEquals($labelNameA, $labelA->getName());
 
-		self::assertInstanceOf('Everyman\Neo4j\Label', $labelB);
+		self::assertInstanceOf('Sgpatil\Orientphp\Label', $labelB);
 		self::assertEquals($labelNameB, $labelB->getName());
 	}
 
@@ -48,8 +48,8 @@ class Client_LabelTest extends \PHPUnit_Framework_TestCase
 		$labelA = $this->client->makeLabel($labelName);
 		$labelB = $this->client->makeLabel($labelName);
 
-		self::assertInstanceOf('Everyman\Neo4j\Label', $labelA);
-		self::assertInstanceOf('Everyman\Neo4j\Label', $labelB);
+		self::assertInstanceOf('Sgpatil\Orientphp\Label', $labelA);
+		self::assertInstanceOf('Sgpatil\Orientphp\Label', $labelB);
 		self::assertSame($labelA, $labelB);
 	}
 
@@ -75,11 +75,11 @@ class Client_LabelTest extends \PHPUnit_Framework_TestCase
 			->will($this->returnValue(array('code'=>200,'data'=>$returnData)));
 
 		$nodes = $this->client->getNodesForLabel($label);
-		self::assertInstanceOf('Everyman\Neo4j\Query\Row', $nodes);
+		self::assertInstanceOf('Sgpatil\Orientphp\Query\Row', $nodes);
 		self::assertEquals(2, count($nodes));
 
-		self::assertInstanceOf('Everyman\Neo4j\Node', $nodes[0]);
-		self::assertInstanceOf('Everyman\Neo4j\Node', $nodes[1]);
+		self::assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[0]);
+		self::assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[1]);
 		self::assertEquals(56,  $nodes[0]->getId());
 		self::assertEquals(834, $nodes[1]->getId());
 	}
@@ -104,10 +104,10 @@ class Client_LabelTest extends \PHPUnit_Framework_TestCase
 			->will($this->returnValue(array('code'=>200,'data'=>$returnData)));
 
 		$nodes = $this->client->getNodesForLabel($label, $propertyName, $propertyValue);
-		self::assertInstanceOf('Everyman\Neo4j\Query\Row', $nodes);
+		self::assertInstanceOf('Sgpatil\Orientphp\Query\Row', $nodes);
 		self::assertEquals(1, count($nodes));
 
-		self::assertInstanceOf('Everyman\Neo4j\Node', $nodes[0]);
+		self::assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[0]);
 		self::assertEquals(56,  $nodes[0]->getId());
 	}
 
@@ -124,7 +124,7 @@ class Client_LabelTest extends \PHPUnit_Framework_TestCase
 			->will($this->returnValue(array('code'=>200,'data'=>$returnData)));
 
 		$nodes = $this->client->getNodesForLabel($label);
-		self::assertInstanceOf('Everyman\Neo4j\Query\Row', $nodes);
+		self::assertInstanceOf('Sgpatil\Orientphp\Query\Row', $nodes);
 		self::assertEquals(0, count($nodes));
 	}
 
@@ -167,10 +167,10 @@ class Client_LabelTest extends \PHPUnit_Framework_TestCase
 			->will($this->returnValue(array('code'=>200,'data'=>$returnData)));
 
 		$nodes = $this->client->getNodesForLabel($label, $propertyName, $propertyValue);
-		self::assertInstanceOf('Everyman\Neo4j\Query\Row', $nodes);
+		self::assertInstanceOf('Sgpatil\Orientphp\Query\Row', $nodes);
 		self::assertEquals(1, count($nodes));
 
-		self::assertInstanceOf('Everyman\Neo4j\Node', $nodes[0]);
+		self::assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[0]);
 		self::assertEquals(56,  $nodes[0]->getId());
 	}
 
@@ -200,7 +200,7 @@ class Client_LabelTest extends \PHPUnit_Framework_TestCase
 
 	public function testGetNodesForLabel_NoLabelCapability_ThrowsException()
 	{
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array('getServerInfo'), array($this->transport));
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array('getServerInfo'), array($this->transport));
 		$this->client->expects($this->any())
 			->method('getServerInfo')
 			->will($this->returnValue(array(
@@ -236,7 +236,7 @@ class Client_LabelTest extends \PHPUnit_Framework_TestCase
 		$labels = $this->client->getLabels();
 		self::assertEquals(count($returnData), count($labels));
 		foreach ($labels as $i => $label) {
-			self::assertInstanceOf('Everyman\Neo4j\Label', $label);
+			self::assertInstanceOf('Sgpatil\Orientphp\Label', $label);
 			self::assertEquals($returnData[$i], $label->getName());
 		}
 
@@ -259,7 +259,7 @@ class Client_LabelTest extends \PHPUnit_Framework_TestCase
 		$labels = $this->client->getLabels($node);
 		self::assertEquals(count($returnData), count($labels));
 		foreach ($labels as $i => $label) {
-			self::assertInstanceOf('Everyman\Neo4j\Label', $label);
+			self::assertInstanceOf('Sgpatil\Orientphp\Label', $label);
 			self::assertEquals($returnData[$i], $label->getName());
 		}
 	}
@@ -280,7 +280,7 @@ class Client_LabelTest extends \PHPUnit_Framework_TestCase
 		$labels = $this->client->getLabels($node);
 		self::assertEquals(count($returnData), count($labels));
 		foreach ($labels as $i => $label) {
-			self::assertInstanceOf('Everyman\Neo4j\Label', $label);
+			self::assertInstanceOf('Sgpatil\Orientphp\Label', $label);
 			self::assertEquals($returnData[$i], $label->getName());
 		}
 	}
@@ -298,7 +298,7 @@ class Client_LabelTest extends \PHPUnit_Framework_TestCase
 
 	public function testGetLabels_NoLabelCapabiltiy_ThrowsException()
 	{
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array('getServerInfo'), array($this->transport));
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array('getServerInfo'), array($this->transport));
 		$this->client->expects($this->any())
 			->method('getServerInfo')
 			->will($this->returnValue(array(
@@ -359,7 +359,7 @@ class Client_LabelTest extends \PHPUnit_Framework_TestCase
 		$resultLabels = $this->client->addLabels($node, array($labelA, $labelB, $labelC));
 		self::assertEquals(count($expectedLabels), count($resultLabels));
 		foreach ($resultLabels as $i => $label) {
-			self::assertInstanceOf('Everyman\Neo4j\Label', $label);
+			self::assertInstanceOf('Sgpatil\Orientphp\Label', $label);
 			self::assertEquals($expectedLabels[$i], $label->getName());
 		}
 	}
@@ -373,7 +373,7 @@ class Client_LabelTest extends \PHPUnit_Framework_TestCase
 		$labelAName = 'FOOBAR';
 		$labelA = $this->client->makeLabel($labelAName);
 
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array('getServerInfo'), array($this->transport));
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array('getServerInfo'), array($this->transport));
 		$this->client->expects($this->any())
 			->method('getServerInfo')
 			->will($this->returnValue(array(
@@ -500,7 +500,7 @@ class Client_LabelTest extends \PHPUnit_Framework_TestCase
 		$resultLabels = $this->client->removeLabels($node, array($labelA, $labelB));
 		self::assertEquals(count($expectedLabels), count($resultLabels));
 		foreach ($resultLabels as $i => $label) {
-			self::assertInstanceOf('Everyman\Neo4j\Label', $label);
+			self::assertInstanceOf('Sgpatil\Orientphp\Label', $label);
 			self::assertEquals($expectedLabels[$i], $label->getName());
 		}
 	}
@@ -514,7 +514,7 @@ class Client_LabelTest extends \PHPUnit_Framework_TestCase
 		$labelAName = 'FOOBAR';
 		$labelA = $this->client->makeLabel($labelAName);
 
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array('getServerInfo'), array($this->transport));
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array('getServerInfo'), array($this->transport));
 		$this->client->expects($this->any())
 			->method('getServerInfo')
 			->will($this->returnValue(array(

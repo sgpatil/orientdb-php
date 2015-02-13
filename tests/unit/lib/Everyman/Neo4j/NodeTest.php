@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class NodeTest extends \PHPUnit_Framework_TestCase
 {
@@ -8,7 +8,7 @@ class NodeTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array(
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array(
 			'saveNode',
 			'deleteNode',
 			'addLabels',
@@ -200,7 +200,7 @@ class NodeTest extends \PHPUnit_Framework_TestCase
 		$type = 'FOOTYPE';
 
 		$rel = $this->node->relateTo($toNode, $type);
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $rel);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $rel);
 		$this->assertSame($this->client, $rel->getClient());
 		$this->assertSame($this->node, $rel->getStartNode());
 		$this->assertSame($toNode, $rel->getEndNode());
@@ -214,7 +214,7 @@ class NodeTest extends \PHPUnit_Framework_TestCase
 		$dir = Relationship::DirectionOut;
 
 		$finder = $this->node->findPathsTo($toNode, $type, $dir);
-		$this->assertInstanceOf('Everyman\Neo4j\PathFinder', $finder);
+		$this->assertInstanceOf('Sgpatil\Orientphp\PathFinder', $finder);
 		$this->assertSame($this->node, $finder->getStartNode());
 		$this->assertSame($toNode, $finder->getEndNode());
 		$this->assertEquals($dir, $finder->getDirection());

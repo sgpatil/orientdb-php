@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class GeoffTest extends \PHPUnit_Framework_TestCase
 {
@@ -8,7 +8,7 @@ class GeoffTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array('runCommand'));
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array('runCommand'));
 		$this->geoff = new Geoff($this->client);
 
 	}
@@ -17,7 +17,7 @@ class GeoffTest extends \PHPUnit_Framework_TestCase
 	{
 		$geoffString = 123;
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$batch = $this->geoff->load($geoffString);
 	}
 
@@ -49,22 +49,22 @@ class GeoffTest extends \PHPUnit_Framework_TestCase
 		$ops = $batch->getOperations();
 		self::assertEquals(3, count($ops));
 
-		self::assertInstanceOf('Everyman\Neo4j\Batch\Save', $ops[0]);
-		self::assertInstanceOf('Everyman\Neo4j\Node', $ops[0]->getEntity());
+		self::assertInstanceOf('Sgpatil\Orientphp\Batch\Save', $ops[0]);
+		self::assertInstanceOf('Sgpatil\Orientphp\Node', $ops[0]->getEntity());
 		self::assertFalse($ops[0]->getEntity()->hasId());
 		self::assertEquals('Elizabeth', $ops[0]->getEntity()->getProperty('name'));
 		self::assertEquals('Queen of the Commonwealth Realms', $ops[0]->getEntity()->getProperty('title'));
 		self::assertEquals('1926-04-21', $ops[0]->getEntity()->getProperty('birth.date'));
 
-		self::assertInstanceOf('Everyman\Neo4j\Batch\Save', $ops[1]);
-		self::assertInstanceOf('Everyman\Neo4j\Node', $ops[1]->getEntity());
+		self::assertInstanceOf('Sgpatil\Orientphp\Batch\Save', $ops[1]);
+		self::assertInstanceOf('Sgpatil\Orientphp\Node', $ops[1]->getEntity());
 		self::assertFalse($ops[1]->getEntity()->hasId());
 		self::assertEquals('Philip', $ops[1]->getEntity()->getProperty('name'));
 		self::assertEquals('Duke of Edinburgh', $ops[1]->getEntity()->getProperty('title'));
 		self::assertEquals('1921-06-21', $ops[1]->getEntity()->getProperty('birth.date'));
 
-		self::assertInstanceOf('Everyman\Neo4j\Batch\Save', $ops[2]);
-		self::assertInstanceOf('Everyman\Neo4j\Node', $ops[2]->getEntity());
+		self::assertInstanceOf('Sgpatil\Orientphp\Batch\Save', $ops[2]);
+		self::assertInstanceOf('Sgpatil\Orientphp\Node', $ops[2]->getEntity());
 		self::assertFalse($ops[2]->getEntity()->hasId());
 		self::assertEquals(array(), $ops[2]->getEntity()->getProperties());
 	}
@@ -74,7 +74,7 @@ class GeoffTest extends \PHPUnit_Framework_TestCase
 		$geoffString = '(Liz)	{"name": "Elizabeth", "title": "Queen of the Commonwealth Realms", "birth.date": "1926-04-21"}'.PHP_EOL
 					 . '(Liz)	{"name": "Elizabeth", "title": "Queen of the Commonwealth Realms", "birth.date": "1926-04-21"}'.PHP_EOL;
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$batch = $this->geoff->load($geoffString);
 	}
 
@@ -91,8 +91,8 @@ class GeoffTest extends \PHPUnit_Framework_TestCase
 		self::assertEquals(5, count($ops));
 
 		$op = $ops[3];
-		self::assertInstanceOf('Everyman\Neo4j\Batch\Save', $op);
-		self::assertInstanceOf('Everyman\Neo4j\Relationship', $op->getEntity());
+		self::assertInstanceOf('Sgpatil\Orientphp\Batch\Save', $op);
+		self::assertInstanceOf('Sgpatil\Orientphp\Relationship', $op->getEntity());
 		self::assertFalse($op->getEntity()->hasId());
 		self::assertSame($ops[0]->getEntity(), $op->getEntity()->getStartNode());
 		self::assertSame($ops[1]->getEntity(), $op->getEntity()->getEndNode());
@@ -101,8 +101,8 @@ class GeoffTest extends \PHPUnit_Framework_TestCase
 		self::assertEquals('1947-11-20', $op->getEntity()->getProperty('marriage.date'));
 
 		$op = $ops[4];
-		self::assertInstanceOf('Everyman\Neo4j\Batch\Save', $op);
-		self::assertInstanceOf('Everyman\Neo4j\Relationship', $op->getEntity());
+		self::assertInstanceOf('Sgpatil\Orientphp\Batch\Save', $op);
+		self::assertInstanceOf('Sgpatil\Orientphp\Relationship', $op->getEntity());
 		self::assertFalse($op->getEntity()->hasId());
 		self::assertSame($ops[1]->getEntity(), $op->getEntity()->getStartNode());
 		self::assertSame($ops[2]->getEntity(), $op->getEntity()->getEndNode());
@@ -115,7 +115,7 @@ class GeoffTest extends \PHPUnit_Framework_TestCase
 		$geoffString = '(Chaz)	{"name": "Charles", "title": "Prince of Wales", "birth.date": "1948-11-14"}'.PHP_EOL
 					 . '(Phil)-[:FATHER_OF]->(Chaz)';
 		
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$batch = $this->geoff->load($geoffString);
 	}
 
@@ -124,7 +124,7 @@ class GeoffTest extends \PHPUnit_Framework_TestCase
 		$geoffString = '(Liz)	{"name": "Elizabeth", "title": "Queen of the Commonwealth Realms", "birth.date": "1926-04-21"}'.PHP_EOL
 					 . '(Liz)-[:MARRIED]->(Phil)    {"marriage.place": "Westminster Abbey", "marriage.date": "1947-11-20"}';
 		
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$batch = $this->geoff->load($geoffString);
 	}
 
@@ -135,7 +135,7 @@ class GeoffTest extends \PHPUnit_Framework_TestCase
 					 . '(Liz)-[LizNPhil:MARRIED]->(Phil)'.PHP_EOL
 					 . '(Liz)-[LizNPhil:MARRIED]->(Phil)';
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$batch = $this->geoff->load($geoffString);
 	}
 
@@ -153,30 +153,30 @@ class GeoffTest extends \PHPUnit_Framework_TestCase
 		self::assertEquals(8, count($ops));
 
 		$op = $ops[3];
-		self::assertInstanceOf('Everyman\Neo4j\Batch\AddTo', $op);
-		self::assertInstanceOf('Everyman\Neo4j\Node', $op->getEntity());
+		self::assertInstanceOf('Sgpatil\Orientphp\Batch\AddTo', $op);
+		self::assertInstanceOf('Sgpatil\Orientphp\Node', $op->getEntity());
 		self::assertEquals('Elizabeth', $op->getEntity()->getProperty('name'));
-		self::assertInstanceOf('Everyman\Neo4j\Index', $op->getIndex());
+		self::assertInstanceOf('Sgpatil\Orientphp\Index', $op->getIndex());
 		self::assertEquals('People', $op->getIndex()->getName());
 		self::assertEquals(Index::TypeNode, $op->getIndex()->getType());
 		self::assertEquals('name', $op->getKey());
 		self::assertEquals('Elizabeth', $op->getValue());
 
 		$op = $ops[4];
-		self::assertInstanceOf('Everyman\Neo4j\Batch\AddTo', $op);
-		self::assertInstanceOf('Everyman\Neo4j\Node', $op->getEntity());
+		self::assertInstanceOf('Sgpatil\Orientphp\Batch\AddTo', $op);
+		self::assertInstanceOf('Sgpatil\Orientphp\Node', $op->getEntity());
 		self::assertEquals('Philip', $op->getEntity()->getProperty('name'));
-		self::assertInstanceOf('Everyman\Neo4j\Index', $op->getIndex());
+		self::assertInstanceOf('Sgpatil\Orientphp\Index', $op->getIndex());
 		self::assertEquals('People', $op->getIndex()->getName());
 		self::assertEquals(Index::TypeNode, $op->getIndex()->getType());
 		self::assertEquals('name', $op->getKey());
 		self::assertEquals('Philip', $op->getValue());
 
 		$op = $ops[5];
-		self::assertInstanceOf('Everyman\Neo4j\Batch\AddTo', $op);
-		self::assertInstanceOf('Everyman\Neo4j\Node', $op->getEntity());
+		self::assertInstanceOf('Sgpatil\Orientphp\Batch\AddTo', $op);
+		self::assertInstanceOf('Sgpatil\Orientphp\Node', $op->getEntity());
 		self::assertEquals('Philip', $op->getEntity()->getProperty('name'));
-		self::assertInstanceOf('Everyman\Neo4j\Index', $op->getIndex());
+		self::assertInstanceOf('Sgpatil\Orientphp\Index', $op->getIndex());
 		self::assertEquals('People', $op->getIndex()->getName());
 		self::assertEquals(Index::TypeNode, $op->getIndex()->getType());
 		self::assertEquals('title', $op->getKey());
@@ -185,20 +185,20 @@ class GeoffTest extends \PHPUnit_Framework_TestCase
 		self::assertSame($ops[4]->getEntity(), $ops[5]->getEntity());
 
 		$op = $ops[6];
-		self::assertInstanceOf('Everyman\Neo4j\Batch\AddTo', $op);
-		self::assertInstanceOf('Everyman\Neo4j\Relationship', $op->getEntity());
+		self::assertInstanceOf('Sgpatil\Orientphp\Batch\AddTo', $op);
+		self::assertInstanceOf('Sgpatil\Orientphp\Relationship', $op->getEntity());
 		self::assertSame($ops[2]->getEntity(), $op->getEntity());
-		self::assertInstanceOf('Everyman\Neo4j\Index', $op->getIndex());
+		self::assertInstanceOf('Sgpatil\Orientphp\Index', $op->getIndex());
 		self::assertEquals('Marriages', $op->getIndex()->getName());
 		self::assertEquals(Index::TypeRelationship, $op->getIndex()->getType());
 		self::assertEquals('wife', $op->getKey());
 		self::assertEquals('Elizabeth', $op->getValue());
 
 		$op = $ops[7];
-		self::assertInstanceOf('Everyman\Neo4j\Batch\AddTo', $op);
-		self::assertInstanceOf('Everyman\Neo4j\Relationship', $op->getEntity());
+		self::assertInstanceOf('Sgpatil\Orientphp\Batch\AddTo', $op);
+		self::assertInstanceOf('Sgpatil\Orientphp\Relationship', $op->getEntity());
 		self::assertSame($ops[2]->getEntity(), $op->getEntity());
-		self::assertInstanceOf('Everyman\Neo4j\Index', $op->getIndex());
+		self::assertInstanceOf('Sgpatil\Orientphp\Index', $op->getIndex());
 		self::assertEquals('Marriages', $op->getIndex()->getName());
 		self::assertEquals(Index::TypeRelationship, $op->getIndex()->getType());
 		self::assertEquals('husband', $op->getKey());
@@ -210,7 +210,7 @@ class GeoffTest extends \PHPUnit_Framework_TestCase
 		$geoffString = '(Liz)	{"name": "Elizabeth", "title": "Queen of the Commonwealth Realms", "birth.date": "1926-04-21"}'.PHP_EOL
 					 . '{People}->(Phil)    {"name": "Philip", "title":"Duke"}';
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$batch = $this->geoff->load($geoffString);
 	}
 
@@ -218,7 +218,7 @@ class GeoffTest extends \PHPUnit_Framework_TestCase
 	{
 		$geoffString = '{Marriages}->[LizNPhil]    {"wife": "Elizabeth", "husband": "Philip"}';
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$batch = $this->geoff->load($geoffString);
 	}
 
@@ -229,7 +229,7 @@ class GeoffTest extends \PHPUnit_Framework_TestCase
 					 . '(Liz)-[LizNPhil:MARRIED]->(Phil)    {"marriage.place": "Westminster Abbey", "marriage.date": "1947-11-20"}'.PHP_EOL
 					 . '{Marriages}->[LizNPhil)    {"wife": "Elizabeth", "husband": "Philip"}';
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$batch = $this->geoff->load($geoffString);
 	}
 
@@ -239,7 +239,7 @@ class GeoffTest extends \PHPUnit_Framework_TestCase
 					 . 'this line is total gibberish'.PHP_EOL
 					 . '{People}->(Liz)    {"name": "Elizabeth"}';
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$batch = $this->geoff->load($geoffString);
 	}
 
@@ -335,7 +335,7 @@ GEOFF;
 		$handle = 123;
 		$path = new Path();
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$batch = $this->geoff->dump($path, $handle);
 	}
 
@@ -344,7 +344,7 @@ GEOFF;
 		$handle = "file";
 		$notPath = "blah";
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$batch = $this->geoff->dump($notPath);
 	}
 }

@@ -14,7 +14,7 @@ class Neo4jPhpVersionTask extends Task
 
 	public function main()
 	{
-		$version = \Everyman\Neo4j\Version::CURRENT;
+		$version = \Sgpatil\Orientphp\Version::CURRENT;
 		$this->log("neo4jphp version: $version");
 		$this->project->setProperty($this->property, $version);
 	}

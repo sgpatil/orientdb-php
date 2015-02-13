@@ -1,10 +1,10 @@
 #!/usr/bin/env php
 <?php
-use Everyman\Neo4j\Client,
-	Everyman\Neo4j\Index\NodeIndex,
-	Everyman\Neo4j\Relationship,
-	Everyman\Neo4j\Node,
-	Everyman\Neo4j\Cypher;
+use Sgpatil\Orientphp\Client,
+	Sgpatil\Orientphp\Index\NodeIndex,
+	Sgpatil\Orientphp\Relationship,
+	Sgpatil\Orientphp\Node,
+	Sgpatil\Orientphp\Cypher;
 
 require_once 'example_bootstrap.php';
 

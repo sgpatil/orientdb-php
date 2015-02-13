@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class PathFinderTest extends \PHPUnit_Framework_TestCase
 {
@@ -8,7 +8,7 @@ class PathFinderTest extends \PHPUnit_Framework_TestCase
 	
 	public function setUp()
 	{
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array(), array(), '', false);
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array(), array(), '', false);
 		$this->finder = new PathFinder($this->client);
 	}
 

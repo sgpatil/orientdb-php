@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class Client_CacheTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,7 +9,7 @@ class Client_CacheTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->transport = $this->getMock('Everyman\Neo4j\Transport');
+		$this->transport = $this->getMock('Sgpatil\Orientphp\Transport');
 		$this->cache = new Cache\Variable();
 
 		$this->client = new Client($this->transport);

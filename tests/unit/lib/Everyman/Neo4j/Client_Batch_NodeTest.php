@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class Client_Batch_NodeTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,7 +9,7 @@ class Client_Batch_NodeTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->transport = $this->getMock('Everyman\Neo4j\Transport');
+		$this->transport = $this->getMock('Sgpatil\Orientphp\Transport');
 		$this->client = new Client($this->transport);
 
 		$this->batch = new Batch($this->client);
@@ -25,7 +25,7 @@ class Client_Batch_NodeTest extends \PHPUnit_Framework_TestCase
 		$this->batch->save($node);
 		$this->setupTransportExpectation($request, $this->returnValue(array('code' => 400)));
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');
 		$this->client->commitBatch($this->batch);
 	}
 

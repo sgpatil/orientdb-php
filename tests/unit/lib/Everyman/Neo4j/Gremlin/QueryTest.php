@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j\Gremlin;
+namespace Sgpatil\Orientphp\Gremlin;
 
 class QueryTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,7 +11,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array(), array(), '', false);
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array(), array(), '', false);
 		$this->queryString = 'i = g.v(start);i.outE.inV';
 		$this->params = array('start' => 123);
 
@@ -32,7 +32,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
 
 	public function testGetResultSet_OnlyExecutesOnce_ReturnsResultSet()
 	{
-		$return = $this->getMock('Everyman\Neo4j\Query\ResultSet', array(), array(), '', false);
+		$return = $this->getMock('Sgpatil\Orientphp\Query\ResultSet', array(), array(), '', false);
 
 		$this->client->expects($this->once())
 			->method('executeGremlinQuery')

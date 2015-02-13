@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class Client_TraversalTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,7 +9,7 @@ class Client_TraversalTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->transport = $this->getMock('Everyman\Neo4j\Transport');
+		$this->transport = $this->getMock('Sgpatil\Orientphp\Transport');
 		$this->transport->expects($this->any())
 			->method('getEndpoint')
 			->will($this->returnValue($this->endpoint));
@@ -21,7 +21,7 @@ class Client_TraversalTest extends \PHPUnit_Framework_TestCase
 		$traversal = new Traversal($this->client);
 		$node = new Node($this->client);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');
 		$this->client->executeTraversal($traversal, $node, Traversal::ReturnTypeNode);
 	}
 
@@ -31,7 +31,7 @@ class Client_TraversalTest extends \PHPUnit_Framework_TestCase
 		$node = new Node($this->client);
 		$node->setId(1);
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');
 		$this->client->executeTraversal($traversal, $node, 'FOOTYPE');
 	}
 
@@ -54,7 +54,7 @@ class Client_TraversalTest extends \PHPUnit_Framework_TestCase
 	
 	public function dataProvider_TestTraversal()
 	{
-		$this->transport = $this->getMock('Everyman\Neo4j\Transport');
+		$this->transport = $this->getMock('Sgpatil\Orientphp\Transport');
 		$this->transport->expects($this->any())
 			->method('getEndpoint')
 			->will($this->returnValue($this->endpoint));
@@ -154,7 +154,7 @@ class Client_TraversalTest extends \PHPUnit_Framework_TestCase
 
 		$result = $this->client->executeTraversal($traversal, $node, Traversal::ReturnTypeNode);
 		$this->assertEquals(1, count($result));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[0]);
 		$this->assertEquals(2, $result[0]->getId());
 		$this->assertEquals('foo', $result[0]->getProperty('name'));
 	}
@@ -184,11 +184,11 @@ class Client_TraversalTest extends \PHPUnit_Framework_TestCase
 
 		$result = $this->client->executeTraversal($traversal, $node, Traversal::ReturnTypeRelationship);
 		$this->assertEquals(1, count($result));
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $result[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $result[0]);
 		$this->assertEquals(2, $result[0]->getId());
 		$this->assertEquals('foo', $result[0]->getProperty('name'));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[0]->getStartNode());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[0]->getEndNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[0]->getStartNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[0]->getEndNode());
 		$this->assertEquals(1, $result[0]->getStartNode()->getId());
 		$this->assertEquals(3, $result[0]->getEndNode()->getId());
 	}
@@ -213,18 +213,18 @@ class Client_TraversalTest extends \PHPUnit_Framework_TestCase
 
 		$result = $this->client->executeTraversal($traversal, $node, Traversal::ReturnTypePath);
 		$this->assertEquals(1, count($result));
-		$this->assertInstanceOf('Everyman\Neo4j\Path', $result[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Path', $result[0]);
 		
 		$rels = $result[0]->getRelationships();
 		$this->assertEquals(1, count($rels));
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $rels[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $rels[0]);
 		$this->assertEquals(2, $rels[0]->getId());
 
 		$nodes = $result[0]->getNodes();
 		$this->assertEquals(2, count($nodes));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[0]);
 		$this->assertEquals(1, $nodes[0]->getId());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[1]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[1]);
 		$this->assertEquals(3, $nodes[1]->getId());
 	}
 
@@ -271,25 +271,25 @@ class Client_TraversalTest extends \PHPUnit_Framework_TestCase
 
 		$result = $this->client->executeTraversal($traversal, $node, Traversal::ReturnTypeFullPath);
 		$this->assertEquals(1, count($result));
-		$this->assertInstanceOf('Everyman\Neo4j\Path', $result[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Path', $result[0]);
 		
 		$rels = $result[0]->getRelationships();
 		$this->assertEquals(1, count($rels));
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $rels[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $rels[0]);
 		$this->assertEquals(2, $rels[0]->getId());
 		$this->assertEquals('FOOTYPE', $rels[0]->getType());
 		$this->assertEquals('baz', $rels[0]->getProperty('name'));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $rels[0]->getStartNode());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $rels[0]->getEndNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $rels[0]->getStartNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $rels[0]->getEndNode());
 		$this->assertEquals(1, $rels[0]->getStartNode()->getId());
 		$this->assertEquals(3, $rels[0]->getEndNode()->getId());
 
 		$nodes = $result[0]->getNodes();
 		$this->assertEquals(2, count($nodes));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[0]);
 		$this->assertEquals(1, $nodes[0]->getId());
 		$this->assertEquals('foo', $nodes[0]->getProperty('name'));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[1]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[1]);
 		$this->assertEquals(3, $nodes[1]->getId());
 		$this->assertEquals('bar', $nodes[1]->getProperty('name'));
 	}
@@ -305,7 +305,7 @@ class Client_TraversalTest extends \PHPUnit_Framework_TestCase
 			->with('/node/1/traverse/node', array())
 			->will($this->returnValue(array("code"=>400)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$result = $this->client->executeTraversal($traversal, $node, Traversal::ReturnTypeNode);
 	}
 
@@ -360,13 +360,13 @@ class Client_TraversalTest extends \PHPUnit_Framework_TestCase
 
 		$result = $this->client->executePagedTraversal($pager);
 		$this->assertEquals(1, count($result));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[0]);
 		$this->assertEquals(2, $result[0]->getId());
 		$this->assertEquals('foo', $result[0]->getProperty('name'));
 
 		$result = $this->client->executePagedTraversal($pager);
 		$this->assertEquals(1, count($result));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[0]);
 		$this->assertEquals(3, $result[0]->getId());
 		$this->assertEquals('bar', $result[0]->getProperty('name'));
 
@@ -391,7 +391,7 @@ class Client_TraversalTest extends \PHPUnit_Framework_TestCase
 			->with('/node/1/paged/traverse/node?pageSize=1&leaseTime=30',array("order" => "depth_first"))
 			->will($this->returnValue(array("code"=>400)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$result = $this->client->executePagedTraversal($pager);
 	}
 }

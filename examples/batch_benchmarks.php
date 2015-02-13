@@ -1,10 +1,10 @@
 #!/usr/bin/env php
 <?php
-namespace Everyman\Neo4j;
-use Everyman\Neo4j\Client,
-	Everyman\Neo4j\Batch,
-	Everyman\Neo4j\Relationship,
-	Everyman\Neo4j\Node;
+namespace Sgpatil\Orientphp;
+use Sgpatil\Orientphp\Client,
+	Sgpatil\Orientphp\Batch,
+	Sgpatil\Orientphp\Relationship,
+	Sgpatil\Orientphp\Node;
 
 require_once 'example_bootstrap.php';
 

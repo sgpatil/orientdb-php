@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class EntityMapperTest extends \PHPUnit_Framework_TestCase
 {
@@ -8,7 +8,7 @@ class EntityMapperTest extends \PHPUnit_Framework_TestCase
 	
 	public function setUp()
 	{
-		$transport = $this->getMock('Everyman\Neo4j\Transport');
+		$transport = $this->getMock('Sgpatil\Orientphp\Transport');
 		$this->client = new Client($transport);
 		$this->mapper = new EntityMapper($this->client);
 	}
@@ -30,7 +30,7 @@ class EntityMapperTest extends \PHPUnit_Framework_TestCase
 
 		$node = $this->mapper->makeNode($data);
 		
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $node);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $node);
 		$this->assertEquals(1, $node->getId());
 		$this->assertEquals('Bob', $node->getProperty('name'));
 	}
@@ -49,12 +49,12 @@ class EntityMapperTest extends \PHPUnit_Framework_TestCase
 
 		$rel = $this->mapper->makeRelationship($data);
 		
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $rel);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $rel);
 		$this->assertEquals(3, $rel->getId());
 		$this->assertEquals('KNOWS', $rel->getType());
 		$this->assertEquals('Bob', $rel->getProperty('name'));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $rel->getStartNode());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $rel->getEndNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $rel->getStartNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $rel->getEndNode());
 		$this->assertEquals(1, $rel->getStartNode()->getId());
 		$this->assertEquals(2, $rel->getEndNode()->getId());
 	}
@@ -89,8 +89,8 @@ class EntityMapperTest extends \PHPUnit_Framework_TestCase
 		
 		$this->assertEquals('KNOWS', $rel->getType());
 		$this->assertEquals('Bob', $rel->getProperty('name'));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $rel->getStartNode());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $rel->getEndNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $rel->getStartNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $rel->getEndNode());
 		$this->assertEquals(1, $rel->getStartNode()->getId());
 		$this->assertEquals(2, $rel->getEndNode()->getId());
 	}
@@ -107,18 +107,18 @@ class EntityMapperTest extends \PHPUnit_Framework_TestCase
 		
 		$rels = $path->getRelationships();
 		$this->assertEquals(2, count($rels));
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $rels[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $rels[0]);
 		$this->assertEquals(564, $rels[0]->getId());
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $rels[1]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $rels[1]);
 		$this->assertEquals(32, $rels[1]->getId());
 
 		$nodes = $path->getNodes();
 		$this->assertEquals(3, count($nodes));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[0]);
 		$this->assertEquals(123, $nodes[0]->getId());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[1]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[1]);
 		$this->assertEquals(341, $nodes[1]->getId());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[2]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[2]);
 		$this->assertEquals(456, $nodes[2]->getId());
 	}
 
@@ -157,21 +157,21 @@ class EntityMapperTest extends \PHPUnit_Framework_TestCase
 		
 		$rels = $path->getRelationships();
 		$this->assertEquals(1, count($rels));
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $rels[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $rels[0]);
 		$this->assertEquals(2, $rels[0]->getId());
 		$this->assertEquals('FOOTYPE', $rels[0]->getType());
 		$this->assertEquals('baz', $rels[0]->getProperty('name'));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $rels[0]->getStartNode());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $rels[0]->getEndNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $rels[0]->getStartNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $rels[0]->getEndNode());
 		$this->assertEquals(1, $rels[0]->getStartNode()->getId());
 		$this->assertEquals(3, $rels[0]->getEndNode()->getId());
 
 		$nodes = $path->getNodes();
 		$this->assertEquals(2, count($nodes));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[0]);
 		$this->assertEquals(1, $nodes[0]->getId());
 		$this->assertEquals('foo', $nodes[0]->getProperty('name'));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[1]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[1]);
 		$this->assertEquals(3, $nodes[1]->getId());
 		$this->assertEquals('bar', $nodes[1]->getProperty('name'));
 	}
@@ -190,12 +190,12 @@ class EntityMapperTest extends \PHPUnit_Framework_TestCase
 
 		$rel = $this->mapper->getEntityFor($data);
 		
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $rel);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $rel);
 		$this->assertEquals(0, $rel->getId());
 		$this->assertEquals('KNOWS', $rel->getType());
 		$this->assertEquals('Bob', $rel->getProperty('name'));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $rel->getStartNode());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $rel->getEndNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $rel->getStartNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $rel->getEndNode());
 		$this->assertEquals(1, $rel->getStartNode()->getId());
 		$this->assertEquals(2, $rel->getEndNode()->getId());
 	}
@@ -211,7 +211,7 @@ class EntityMapperTest extends \PHPUnit_Framework_TestCase
 
 		$node = $this->mapper->getEntityFor($data);
 		
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $node);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $node);
 		$this->assertEquals(0, $node->getId());
 		$this->assertEquals('Bob', $node->getProperty('name'));
 	}
@@ -229,20 +229,20 @@ class EntityMapperTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$path = $this->mapper->getEntityFor($data);
-		$this->assertInstanceOf('Everyman\Neo4j\Path', $path);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Path', $path);
 		$this->assertEquals(1, $path->getStartNode()->getId());
 		$this->assertEquals(3, $path->getEndNode()->getId());
 
 		$rels = $path->getRelationships();
 		$this->assertEquals(1, count($rels));
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $rels[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $rels[0]);
 		$this->assertEquals(2, $rels[0]->getId());
 
 		$nodes = $path->getNodes();
 		$this->assertEquals(2, count($nodes));
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[0]);
 		$this->assertEquals(1, $nodes[0]->getId());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $nodes[1]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $nodes[1]);
 		$this->assertEquals(3, $nodes[1]->getId());
 	}
 }

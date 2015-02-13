@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class Client_TransactionTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,12 +9,12 @@ class Client_TransactionTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->transport = $this->getMock('Everyman\Neo4j\Transport');
+		$this->transport = $this->getMock('Sgpatil\Orientphp\Transport');
 		$this->transport->expects($this->any())
 			->method('getEndpoint')
 			->will($this->returnValue($this->endpoint));
 
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array('hasCapability'), array($this->transport));
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array('hasCapability'), array($this->transport));
 		$this->client->expects($this->any())
 			->method('hasCapability')
 			->will($this->returnValue(true));
@@ -23,7 +23,7 @@ class Client_TransactionTest extends \PHPUnit_Framework_TestCase
 	public function testBeginTransaction_ReturnsNewTransactionWithNoId()
 	{
 		$result = $this->client->beginTransaction();
-		self::assertInstanceOf('\Everyman\Neo4j\Transaction', $result);
+		self::assertInstanceOf('\Sgpatil\Orientphp\Transaction', $result);
 		self::assertNull($result->getId());
 	}
 
@@ -101,16 +101,16 @@ class Client_TransactionTest extends \PHPUnit_Framework_TestCase
 		self::assertEquals(2, count($result));
 
 		$resultA = $result[0];
-		self::assertInstanceOf('\Everyman\Neo4j\Query\ResultSet', $resultA);
+		self::assertInstanceOf('\Sgpatil\Orientphp\Query\ResultSet', $resultA);
 		self::assertEquals(3, count($resultA));
 		self::assertEquals('Bob', $resultA[0]['name']);
 		self::assertEquals(12, $resultA[0]['age']);
 
 		$resultB = $result[1];
-		self::assertInstanceOf('\Everyman\Neo4j\Query\ResultSet', $resultB);
+		self::assertInstanceOf('\Sgpatil\Orientphp\Query\ResultSet', $resultB);
 		self::assertEquals(2, count($resultB));
 		self::assertEquals(2, $resultB[1]['count']);
-		self::assertInstanceOf('\Everyman\Neo4j\Node', $resultB[1]['somenode']);
+		self::assertInstanceOf('\Sgpatil\Orientphp\Node', $resultB[1]['somenode']);
 		self::assertEquals(21, $resultB[1]['somenode']->getId());
 		self::assertEquals('ipsum', $resultB[1]['somenode']->getProperty('lorem'));
 
@@ -202,7 +202,7 @@ class Client_TransactionTest extends \PHPUnit_Framework_TestCase
 			->with('/transaction')
 			->will($this->returnValue(array("code" => 400)));
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');
 		$this->client->addStatementsToTransaction($transaction, array($queryA));
 	}
 
@@ -223,7 +223,7 @@ class Client_TransactionTest extends \PHPUnit_Framework_TestCase
 			->with('/transaction')
 			->will($this->returnValue(array("code" => 200, "data" => $expectedResponse)));
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');
 		$this->client->addStatementsToTransaction($transaction, array($queryA));
 	}
 
@@ -299,13 +299,13 @@ class Client_TransactionTest extends \PHPUnit_Framework_TestCase
 		$this->transport->expects($this->never())
 			->method('post');
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');
 		$this->client->addStatementsToTransaction($transaction, array());
 	}
 
 	public function testAddStatements_NoTransactionCapability_ThrowsException()
 	{
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array('hasCapability'), array($this->transport));
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array('hasCapability'), array($this->transport));
 		$this->client->expects($this->any())
 			->method('hasCapability')
 			->will($this->returnValue(false));
@@ -316,7 +316,7 @@ class Client_TransactionTest extends \PHPUnit_Framework_TestCase
 		$this->transport->expects($this->never())
 			->method('post');
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');
 		$this->client->addStatementsToTransaction($transaction, array($queryA));
 	}
 
@@ -340,13 +340,13 @@ class Client_TransactionTest extends \PHPUnit_Framework_TestCase
 		$this->transport->expects($this->never())
 			->method('delete');
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');
 		$this->client->rollbackTransaction($transaction);
 	}
 
 	public function testRollback_NoTransactionCapability_ThrowsException()
 	{
-		$this->client = $this->getMock('Everyman\Neo4j\Client', array('hasCapability'), array($this->transport));
+		$this->client = $this->getMock('Sgpatil\Orientphp\Client', array('hasCapability'), array($this->transport));
 		$this->client->expects($this->any())
 			->method('hasCapability')
 			->will($this->returnValue(false));
@@ -357,7 +357,7 @@ class Client_TransactionTest extends \PHPUnit_Framework_TestCase
 		$this->transport->expects($this->never())
 			->method('delete');
 
-		$this->setExpectedException('\Everyman\Neo4j\Exception');
+		$this->setExpectedException('\Sgpatil\Orientphp\Exception');
 		$this->client->rollbackTransaction($transaction);
 	}
 }

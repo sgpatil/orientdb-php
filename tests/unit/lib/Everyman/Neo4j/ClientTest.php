@@ -1,5 +1,5 @@
 <?php
-namespace Everyman\Neo4j;
+namespace Sgpatil\Orientphp;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -9,7 +9,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->transport = $this->getMock('Everyman\Neo4j\Transport');
+		$this->transport = $this->getMock('Sgpatil\Orientphp\Transport');
 		$this->transport->expects($this->any())
 			->method('getEndpoint')
 			->will($this->returnValue($this->endpoint));
@@ -25,7 +25,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	{
 		$client = new Client();
 		$transport = $client->getTransport();
-		$this->assertInstanceOf('Everyman\Neo4j\Transport', $transport);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Transport', $transport);
 		$this->assertEquals('http://localhost:7474/db/data', $transport->getEndpoint());
 	}
 
@@ -33,7 +33,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	{
 		$client = new Client('somehost', 7575);
 		$transport = $client->getTransport();
-		$this->assertInstanceOf('Everyman\Neo4j\Transport', $transport);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Transport', $transport);
 		$this->assertEquals('http://somehost:7575/db/data', $transport->getEndpoint());
 	}
 
@@ -60,7 +60,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/node/123')
 			->will($this->returnValue(array('code'=>404)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->deleteNode($node);
 	}
 
@@ -74,7 +74,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/node/123')
 			->will($this->returnValue(array('code'=>409)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->deleteNode($node);
 	}
 
@@ -82,7 +82,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	{
 		$node = new Node($this->client);
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->deleteNode($node);
 	}
 
@@ -91,7 +91,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$node = new Node($this->client);
 		$command = new Command\UpdateNode($this->client, $node);
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$command->execute();
 	}
 
@@ -133,7 +133,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/node/123/properties', $properties)
 			->will($this->returnValue(array('code'=>404)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->saveNode($node);
 	}
 
@@ -154,7 +154,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/node/123/properties', $properties)
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->saveNode($node);
 	}
 
@@ -195,7 +195,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/node', $properties)
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->saveNode($node);
 	}
 
@@ -221,7 +221,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/node/'.$nodeId)
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->getNode($nodeId);
 	}
 
@@ -245,7 +245,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->method('get');
 
 		$node = $this->client->getNode($nodeId, true);
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $node);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $node);
 		$this->assertEquals($nodeId, $node->getId());
 	}
 
@@ -264,7 +264,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 		$node = $this->client->getNode($nodeId);
 		$this->assertNotNull($node);
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $node);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $node);
 		$this->assertEquals($nodeId, $node->getId());
 		$this->assertEquals($properties, $node->getProperties());
 	}
@@ -280,7 +280,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/node/'.$nodeId)
 			->will($this->returnValue(array('code'=>404)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->loadNode($node);
 	}
 
@@ -288,7 +288,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	{
 		$node = new Node($this->client);
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->loadNode($node);
 	}
 
@@ -301,7 +301,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/relationship/'.$relId)
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->getRelationship($relId);
 	}
 
@@ -325,7 +325,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->method('get');
 
 		$rel = $this->client->getRelationship($relId, true);
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $rel);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $rel);
 		$this->assertEquals($relId, $rel->getId());
 	}
 
@@ -349,19 +349,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 		$rel = $this->client->getRelationship($relId);
 		$this->assertNotNull($rel);
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $rel);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $rel);
 		$this->assertEquals($relId, $rel->getId());
 		$this->assertEquals($data['data'], $rel->getProperties());
 		$this->assertEquals($data['type'], $rel->getType());
 
 		$start = $rel->getStartNode();
 		$this->assertNotNull($start);
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $start);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $start);
 		$this->assertEquals(567, $start->getId());
 
 		$end = $rel->getEndNode();
 		$this->assertNotNull($end);
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $end);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $end);
 		$this->assertEquals(890, $end->getId());
 	}
 
@@ -410,7 +410,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/relationship/'.$relId)
 			->will($this->returnValue(array('code'=>404)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->loadRelationship($rel);
 	}
 
@@ -418,7 +418,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	{
 		$rel = new Relationship($this->client);
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->loadRelationship($rel);
 	}
 
@@ -445,7 +445,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/relationship/123')
 			->will($this->returnValue(array('code'=>404)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->deleteRelationship($rel);
 	}
 
@@ -459,7 +459,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/relationship/123')
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->deleteRelationship($rel);
 	}
 
@@ -467,7 +467,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	{
 		$rel = new Relationship($this->client);
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->deleteRelationship($rel);
 	}
 
@@ -475,7 +475,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 	{
 		$rel = new Relationship($this->client);
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->saveRelationship($rel);
 	}
 
@@ -487,7 +487,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$rel = new Relationship($this->client);
 		$rel->setStartNode($start);
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->saveRelationship($rel);
 	}
 
@@ -502,7 +502,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$rel->setStartNode($start);
 		$rel->setEndNode($end);
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->saveRelationship($rel);
 	}
 
@@ -591,7 +591,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/node/123/relationships', $data)
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->saveRelationship($rel);
 	}
 
@@ -600,7 +600,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$rel = new Relationship($this->client);
 		$command = new Command\UpdateRelationship($this->client, $rel);
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$command->execute();
 	}
 
@@ -641,7 +641,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/relationship/123/properties', $properties)
 			->will($this->returnValue(array('code'=>404)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->saveRelationship($rel);
 	}
 
@@ -662,7 +662,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/relationship/123/properties', $properties)
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->saveRelationship($rel);
 	}
 
@@ -672,7 +672,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$type = 'FOOTYPE';
 		$dir = Relationship::DirectionOut;
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->getNodeRelationships($node, $type, $dir);
 	}
 
@@ -686,7 +686,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/node/123/relationships/all')
 			->will($this->returnValue(array('code'=>404)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->getNodeRelationships($node, array(), null);
 	}
 
@@ -737,20 +737,20 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		$result = $this->client->getNodeRelationships($node, $types, $dir);
 		$this->assertEquals(2, count($result));
 
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $result[0]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $result[0]);
 		$this->assertEquals(56, $result[0]->getId());
 		$this->assertEquals($data[0]['data'], $result[0]->getProperties());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[0]->getStartNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[0]->getStartNode());
 		$this->assertEquals(123, $result[0]->getStartNode()->getId());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[0]->getEndNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[0]->getEndNode());
 		$this->assertEquals(93, $result[0]->getEndNode()->getId());
 
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $result[1]);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $result[1]);
 		$this->assertEquals(834, $result[1]->getId());
 		$this->assertEquals($data[1]['data'], $result[1]->getProperties());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[1]->getStartNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[1]->getStartNode());
 		$this->assertEquals(32, $result[1]->getStartNode()->getId());
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $result[1]->getEndNode());
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $result[1]->getEndNode());
 		$this->assertEquals(123, $result[1]->getEndNode()->getId());
 	}
 
@@ -775,7 +775,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/relationship/types')
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$result = $this->client->getRelationshipTypes();
 	}
 
@@ -853,14 +853,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			->with('/')
 			->will($this->returnValue(array('code'=>400)));
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->getServerInfo();
 	}
 
 	public function testStartBatch_MultipleCallsWithoutCommit_ReturnsSameBatch()
 	{
 		$batch = $this->client->startBatch();
-		$this->assertInstanceOf('Everyman\Neo4j\Batch', $batch);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Batch', $batch);
 
 		$batchAgain = $this->client->startBatch();
 		$this->assertSame($batch, $batchAgain);
@@ -876,11 +876,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 		$batch = $this->client->startBatch();
 		$batch->save(new Node($this->client));
-		$this->assertInstanceOf('Everyman\Neo4j\Batch', $batch);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Batch', $batch);
 		$this->client->commitBatch();
 
 		$batchAgain = $this->client->startBatch();
-		$this->assertInstanceOf('Everyman\Neo4j\Batch', $batchAgain);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Batch', $batchAgain);
 		$this->assertNotSame($batch, $batchAgain);
 	}
 
@@ -894,11 +894,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 		$batch = $this->client->startBatch();
 		$batch->save(new Node($this->client));
-		$this->assertInstanceOf('Everyman\Neo4j\Batch', $batch);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Batch', $batch);
 		$batch->commit();
 
 		$batchAgain = $this->client->startBatch();
-		$this->assertInstanceOf('Everyman\Neo4j\Batch', $batchAgain);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Batch', $batchAgain);
 		$this->assertNotSame($batch, $batchAgain);
 	}
 
@@ -929,7 +929,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 	public function testCommitBatch_NoBatchGivenNoOpenBatch_ThrowsException()
 	{
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->commitBatch();
 	}
 
@@ -950,7 +950,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$node = $this->client->makeNode($data);
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $node);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $node);
 		$this->assertSame($this->client, $node->getClient());
 		$this->assertEquals($data, $node->getProperties());
 	}
@@ -963,7 +963,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		$rel = $this->client->makeRelationship($data);
-		$this->assertInstanceOf('Everyman\Neo4j\Relationship', $rel);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Relationship', $rel);
 		$this->assertSame($this->client, $rel->getClient());
 		$this->assertEquals($data, $rel->getProperties());
 	}
@@ -977,7 +977,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
 		$node = $this->client->getReferenceNode();
 		$this->assertNotNull($node);
-		$this->assertInstanceOf('Everyman\Neo4j\Node', $node);
+		$this->assertInstanceOf('Sgpatil\Orientphp\Node', $node);
 		$this->assertEquals(0, $node->getId());
 	}
 
@@ -988,12 +988,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		});
 
 		$node = $this->client->makeNode();
-		$this->assertInstanceOf('Everyman\Neo4j\NodeFactoryTestClass_ClientTest', $node);
+		$this->assertInstanceOf('Sgpatil\Orientphp\NodeFactoryTestClass_ClientTest', $node);
 	}
 
 	public function testNodeFactory_SetNodeFactory_NotCallable_ThrowsException()
 	{
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->setNodeFactory('bar');
 	}
 
@@ -1003,7 +1003,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			return new \stdClass();
 		});
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$node = $this->client->makeNode();
 	}
 
@@ -1014,12 +1014,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 		});
 
 		$rel = $this->client->makeRelationship();
-		$this->assertInstanceOf('Everyman\Neo4j\RelFactoryTestClass_ClientTest', $rel);
+		$this->assertInstanceOf('Sgpatil\Orientphp\RelFactoryTestClass_ClientTest', $rel);
 	}
 
 	public function testRelationshipFactory_SetRelationshipFactory_NotCallable_ThrowsException()
 	{
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$this->client->setRelationshipFactory('bar');
 	}
 
@@ -1029,7 +1029,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 			return new \stdClass();
 		});
 
-		$this->setExpectedException('Everyman\Neo4j\Exception');
+		$this->setExpectedException('Sgpatil\Orientphp\Exception');
 		$rel = $this->client->makeRelationship();
 	}
 }
