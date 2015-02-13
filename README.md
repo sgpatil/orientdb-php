@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Neo4jPHP
 ========
 Author: Josh Adell <josh.adell@gmail.com>  
@@ -127,3 +128,6 @@ Changes
 * Properly encode URL entities
 * Connection and transport errors throw exceptions
 * Fix "unable to connect" bug from returning false positive
+=======
+# orientdb-php
+>>>>>>> 1e63d7e09b5a814b2a18ab6028e6c65dd5a3743b
