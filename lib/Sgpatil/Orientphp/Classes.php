@@ -194,8 +194,8 @@ class Classes extends PropertyContainer
 	 */
 	public function save()
 	{   
-                
-		$this->client->saveClass($this);
+		//$this->client->saveClass($this);
+                //$this->client->saveProperties($this);
 		//$this->useLazyLoad(false);
 		return $this;
 	}

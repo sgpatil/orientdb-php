@@ -32,9 +32,23 @@ abstract class Transport
 	{
 		$this->host = $host;
 		$this->port = $port;
-                $this->database = $database;
+                $this->setDatabaseName($database);
 	}
 
+        public function getDatabaseName()
+	{
+		return $this->database; 
+	}
+        
+        public function setDatabaseName($dbname=null)
+	{
+            if($dbname==null){
+                $this->database = "";
+            }else{
+		$this->database = "/{$dbname}";
+            }
+	}
+        
 	/**
 	 * Return the Neo4j REST endpoint
 	 *
@@ -42,8 +56,10 @@ abstract class Transport
 	 */
 	public function getEndpoint()
 	{
-		return "{$this->scheme}://{$this->host}:{$this->port}{$this->command}/{$this->database}{$this->path}";
+		return "{$this->scheme}://{$this->host}:{$this->port}{$this->command}{$this->path}";
 	}
+        
+
 
 	/**
 	 * Encode data for transport

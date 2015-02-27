@@ -31,7 +31,9 @@ class CreateClass extends Command
 	 */
 	protected function getData()
 	{
-		return $this->node->getProperties() ?: null;
+            $data = array('name' => array("propertyType" => "STRING"));
+            
+            return $data;
 	}
         
         /**
@@ -71,7 +73,7 @@ class CreateClass extends Command
 	 */
 	protected function getCommand()
 	{
-		return '/class';
+		return '/class'.$this->client->getTransport()->getDatabaseName();
 	}
 
 	/**

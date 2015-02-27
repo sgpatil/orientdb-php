@@ -25,9 +25,9 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
 	public function __construct(Client $client, $result)
 	{
 		$this->client = $client;
-		if (is_array($result) && array_key_exists('data', $result)) {
-			$this->data = $result['data'];
-			$this->columns = $result['columns'];
+		if (is_array($result) && array_key_exists('result', $result)) {
+			$this->data = $result['result'];
+			//$this->columns = $result['columns'];
 		}
 	}
 
@@ -39,6 +39,16 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
 	public function getColumns()
 	{
 		return $this->columns;
+	}
+        
+        /**
+	 * Return the data
+	 *
+	 * @return array
+	 */
+	public function getData()
+	{
+		return $this->data;
 	}
 
 	// ArrayAccess API

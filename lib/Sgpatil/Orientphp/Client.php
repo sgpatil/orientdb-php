@@ -224,6 +224,18 @@ class Client
 		$command = new Command\ExecuteCypherQuery($this, $query);
 		return $this->runCommand($command);
 	}
+        
+        /**
+	 * Execute the given Batch statement and return the result
+	 *
+	 * @param Cypher\Query $query A Cypher query, or a query template.
+	 * @return Query\ResultSet
+	 */
+	public function executeBatchQuery(Batch\Query $query)
+	{
+		$command = new Command\ExecuteBatchQuery($this, $query);
+		return $this->runCommand($command);
+	}
 
 	/**
 	 * Execute the given Gremlin query and return the result
@@ -603,6 +615,7 @@ class Client
 			throw new Exception('Node factory did not return a Classes object.');
 		}
                 $class->setName($name);
+                $class->setProperties($properties);
                 return $class;
 		//return $class->setProperties($properties);
 	}
@@ -734,6 +747,26 @@ class Client
 			return $this->runCommand(new Command\UpdateClass($this, $class));
 		} else {
 			return $this->runCommand(new Command\CreateClass($this, $class));
+		}
+	}
+        
+        /**
+	 * Save the given properties
+	 *
+	 * @param Node $node
+	 * @return boolean
+	 */
+	public function saveProperties(Classes $class)
+	{
+		if ($this->openBatch) {
+			$this->openBatch->save($class);
+			return true;
+		}
+
+		if ($class->hasId()) {
+			return $this->runCommand(new Command\UpdateProperty($this, $class));
+		} else {
+			return $this->runCommand(new Command\CreateProperty($this, $class));
 		}
 	}
 

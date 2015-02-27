@@ -130,7 +130,7 @@ abstract class Command
 	 */
 	protected function throwError($message, $code, $headers, $data)
 	{
-		$message = "Error: " . $data['error'];
+		$message = "Error: ".$message;
 		throw new Exception($message, $code, $headers, $data);
 	}
 }

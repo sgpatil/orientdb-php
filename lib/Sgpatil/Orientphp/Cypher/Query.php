@@ -11,7 +11,7 @@ use Sgpatil\Orientphp;
  * Latest documentation:
  * http://docs.neo4j.org/chunked/snapshot/cypher-query-lang.html
  */
-class Query implements Neo4j\Query
+class Query implements Orientphp\Query
 {
 	protected $client = null;
 	protected $template = null;
@@ -26,7 +26,7 @@ class Query implements Neo4j\Query
 	 * @param string $template A Cypher query string or template
 	 * @param array $vars Replacement vars to inject into the query
 	 */
-	public function __construct(Neo4j\Client $client, $template, $vars=array())
+	public function __construct(\Sgpatil\Orientphp\Client $client, $template, $vars=array())
 	{
 		$this->client = $client;
 		$this->template = $template;

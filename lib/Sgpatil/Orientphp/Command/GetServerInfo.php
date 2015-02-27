@@ -2,7 +2,7 @@
 namespace Sgpatil\Orientphp\Command;
 
 use Sgpatil\Orientphp\Command,
-	Sgpatil\Orientphp\Client;
+    Sgpatil\Orientphp\Client;
 
 /**
  * Get information about the server
@@ -36,7 +36,7 @@ class GetServerInfo extends Command
 	 */
 	protected function getPath()
 	{
-		return '/';
+		return '/server';
 	}
 
 	/**
@@ -49,10 +49,11 @@ class GetServerInfo extends Command
 	 */
 	protected function handleResult($code, $headers, $data)
 	{
+
 		if ((int)($code / 100) != 2) {
 			$this->throwException('Unable to retrieve server info', $code, $headers, $data);
 		}
-		$data['version'] = $this->parseVersion($data['neo4j_version']);
+		$data['version'] = "test";
 		return $data;
 	}
 
@@ -77,4 +78,9 @@ class GetServerInfo extends Command
 		}
 		return $versionInfo;
 	}
+
+        protected function getCommand() {
+
+        }
+
 }

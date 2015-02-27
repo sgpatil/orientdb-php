@@ -39,8 +39,10 @@ class Curl extends BaseTransport
 	 */
 	public function makeRequest($method, $path, $data=array())
 	{
-                $url = $this->getEndpoint().$path;
-
+            
+       echo "\n".     $url = $this->getEndpoint().$path;
+      
+           
 		$options = array(
 			CURLOPT_URL => $url,
 			CURLOPT_RETURNTRANSFER => true,
@@ -70,6 +72,7 @@ class Curl extends BaseTransport
 			case self::POST:
 			case self::PUT:
 				$dataString = $this->encodeData($data);
+                                print_r($dataString);
 				$options[CURLOPT_CUSTOMREQUEST] = $method;
 				$options[CURLOPT_POSTFIELDS] = $dataString;
 				$options[CURLOPT_HTTPHEADER][] = 'Content-Length: '.strlen($dataString);
@@ -84,6 +87,7 @@ class Curl extends BaseTransport
 		curl_setopt_array($ch, $options);
                 
 		$response = curl_exec($ch);
+
 		$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		$headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
                      
@@ -100,13 +104,13 @@ class Curl extends BaseTransport
 
 		$bodyString = substr($response, $headerSize);
 
-                $responce_error = explode(':', $bodyString);
-                
-
-                if(is_array($responce_error) and sizeof($responce_error)>1){
-                    $bodyString = '{"error" : "'.end($responce_error).'"}';                
-                }
-                
+//                $responce_error = explode(':', $bodyString);
+//                
+//
+//                if(is_array($responce_error) and sizeof($responce_error)>1){
+//                    $bodyString = '{"error" : "'.end($responce_error).'"}';                
+//                }
+//                
                 
 		$bodyData = json_decode($bodyString, true);
 

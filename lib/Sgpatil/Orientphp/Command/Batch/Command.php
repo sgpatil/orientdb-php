@@ -11,6 +11,13 @@ abstract class Command extends SingleCommand
 {
 	protected $base = null;
 	protected $opId = null;
+        
+        //Added for Orientdb
+        protected $type = null;
+        protected $record = null;
+        protected $language = null;
+        protected $command = null;
+        protected $script = null;
 
 	/**
 	 * Set the operation to drive the command
