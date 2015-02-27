@@ -40,7 +40,7 @@ class Curl extends BaseTransport
 	public function makeRequest($method, $path, $data=array())
 	{
             
-       echo "\n".     $url = $this->getEndpoint().$path;
+                $url = $this->getEndpoint().$path;
       
            
 		$options = array(
