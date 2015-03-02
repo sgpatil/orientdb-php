@@ -15,8 +15,10 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
 	protected $data = array();
 	protected $columns = array();
 	protected $position = 0;
+        protected $result = true;
 
-	/**
+        
+        /**
 	 * Set the array of results to represent
 	 *
 	 * @param Client $client
@@ -28,8 +30,16 @@ class ResultSet implements \Iterator, \Countable, \ArrayAccess
 		if (is_array($result) && array_key_exists('result', $result)) {
 			$this->data = $result['result'];
 			//$this->columns = $result['columns'];
-		}
+                }else{
+                    $this->result = false;
+                }
 	}
+        
+        public function result()
+	{
+		return $this->result;
+	}
+        
 
 	/**
 	 * Return the list of column names

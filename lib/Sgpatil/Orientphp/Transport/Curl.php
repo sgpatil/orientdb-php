@@ -72,7 +72,6 @@ class Curl extends BaseTransport
 			case self::POST:
 			case self::PUT:
 				$dataString = $this->encodeData($data);
-                                print_r($dataString);
 				$options[CURLOPT_CUSTOMREQUEST] = $method;
 				$options[CURLOPT_POSTFIELDS] = $dataString;
 				$options[CURLOPT_HTTPHEADER][] = 'Content-Length: '.strlen($dataString);
@@ -87,6 +86,8 @@ class Curl extends BaseTransport
 		curl_setopt_array($ch, $options);
                 
 		$response = curl_exec($ch);
+                
+                //print_r($response);
 
 		$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		$headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);

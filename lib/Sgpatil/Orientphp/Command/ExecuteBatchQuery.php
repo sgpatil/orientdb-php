@@ -34,6 +34,15 @@ class ExecuteBatchQuery extends Command {
      */
     protected function getData() {
 
+        $data = array("transaction" => true, 
+              "operations" => array(
+                  array(
+                      "type"        => $this->getType(), 
+                      "language"    => $this->getLanguage(), 
+                      "script"     => [$this->getQuery() ]
+                  ) 
+               ) 
+             );
 
 //$data = array("transaction" => true, 
 //              "operations" => array(
@@ -48,6 +57,18 @@ class ExecuteBatchQuery extends Command {
         return $data;
     }
 
+    protected function getTransaction() {
+        return $this->transaction;
+    }
+    
+     protected function getType() {
+        return "script";
+    }
+    
+     protected function getLanguage() {
+        return "sql";
+    }
+    
     /**
      * Return the transport method to call
      *
@@ -99,9 +120,7 @@ class ExecuteBatchQuery extends Command {
      */
     protected function getQuery() {
         $url = $this->query->getQuery();
-        return preg_replace("/[\s_]/", "%20", $url);
-        //$params = $this->query->getParameters();
-        //return preg_replace('|class|', $params['idn'], $url);
+        return $url;
     }
 
 }
