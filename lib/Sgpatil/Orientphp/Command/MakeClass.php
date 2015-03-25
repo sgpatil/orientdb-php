@@ -67,7 +67,7 @@ class CreateClass extends Command
 	{
             
 		if ((int)($code / 100) != 2) {
-			$this->throwException('Unable to create class', $data);
+			$this->throwException('Unable to make class', $data);
 		}
 
 		$nodeId = $this->getEntityMapper()->getIdFromUri($headers['Location']);

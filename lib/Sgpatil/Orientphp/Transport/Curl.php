@@ -41,8 +41,8 @@ class Curl extends BaseTransport
 	{
             
                 $url = $this->getEndpoint().$path;
-      
-           
+                // echo $url."\n ";
+                
 		$options = array(
 			CURLOPT_URL => $url,
 			CURLOPT_RETURNTRANSFER => true,

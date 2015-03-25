@@ -89,7 +89,7 @@ class InsertRecord extends Command
 	{      
             
 		if ((int)($code / 100) != 2) {
-			$this->throwError('Unable to create Class', $code, $headers, $data);
+			$this->throwError('Unable to insert record', $code, $headers, $data);
 		}
 
 		return true;

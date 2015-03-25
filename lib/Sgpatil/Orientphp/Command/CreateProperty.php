@@ -87,7 +87,7 @@ class CreateProperty extends Command
 	{      
             
 		if ((int)($code / 100) != 2) {
-			$this->throwError('Unable to create Class', $code, $headers, $data);
+			$this->throwError('Unable to create Property', $code, $headers, $data);
 		}
 
 		//$nodeId = $this->getEntityMapper()->getIdFromUri($headers['Location']);
