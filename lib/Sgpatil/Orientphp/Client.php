@@ -607,17 +607,13 @@ class Client
 	 * @throws Exception
 	 * @return Node
 	 */
-	public function makeClass($name, $properties=array())
+	public function makeClass($name, \Closure $callback = null)
 	{
-            $class = new Classes($this, $properties);
-            
+            $class = new Classes($name, $callback, $this);
 		if (!($class instanceof Classes)) {
 			throw new Exception('Node factory did not return a Classes object.');
 		}
-                $class->setName($name);
-                $class->setProperties($properties);
                 return $class;
-		//return $class->setProperties($properties);
 	}
 
 	/**

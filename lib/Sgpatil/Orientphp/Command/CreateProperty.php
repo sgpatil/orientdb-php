@@ -10,18 +10,18 @@ use Sgpatil\Orientphp\Command,
  */
 class CreateProperty extends Command
 {
-	protected $node = null;
+	protected $classes = null;
 
 	/**
-	 * Set the node to drive the command
+	 * Set the classes to drive the command
 	 *
 	 * @param Client $client
-	 * @param Node $node
+	 * @param Node $classes
 	 */
-	public function __construct(Client $client, Classes $node)
+	public function __construct(Client $client, Classes $classes)
 	{
 		parent::__construct($client);
-		$this->node = $node;
+		$this->classes = $classes;
 	}
 
 	/**
@@ -31,7 +31,7 @@ class CreateProperty extends Command
 	 */
 	protected function getData()
 	{
-            return $this->node->getProperties() ?: null;
+            return $this->classes->getProperties() ?: null;
 	}
         
         /**
@@ -41,7 +41,7 @@ class CreateProperty extends Command
 	 */
 	protected function getName()
 	{
-		return $this->node->getName();
+		return $this->classes->getName();
 	}
 
 	/**
@@ -90,9 +90,9 @@ class CreateProperty extends Command
 			$this->throwError('Unable to create Property', $code, $headers, $data);
 		}
 
-		//$nodeId = $this->getEntityMapper()->getIdFromUri($headers['Location']);
-		//$this->node->setId($nodeId);
-		//$this->getEntityCache()->setCachedEntity($this->node);
+		//$classesId = $this->getEntityMapper()->getIdFromUri($headers['Location']);
+		//$this->classes->setId($classesId);
+		//$this->getEntityCache()->setCachedEntity($this->classes);
 		return true;
 	}
 }

@@ -1,10 +1,10 @@
 <?php
 namespace Sgpatil\Orientphp;
-
+use Closure;
 /**
  * Represents a class in the database
  */
-class Classes extends PropertyContainer
+class Classes extends Builder
 {
 	/**
 	 * @var Label[] Our labels, or `null` if not loaded
@@ -12,7 +12,27 @@ class Classes extends PropertyContainer
 	protected $labels = null;
         
         protected $name =null;
+        
+        protected $columns = null;
 
+
+        /**
+	 * Create a new schema blueprint.
+	 *
+	 * @param  string   $table
+	 * @param  \Closure  $callback
+	 * @return void
+	 */
+	public function __construct($table, Closure $callback = null, $client)
+	{
+		$this->setName($table);
+                
+		if ( ! is_null($callback)) $callback($this);
+                
+                parent::__construct($client);
+	}
+        
+        
         /**
 	 * Set class name
 	 *
@@ -209,4 +229,5 @@ class Classes extends PropertyContainer
 	{
 		return array_merge(parent::__sleep(), array('labels'));
 	}
+        
 }

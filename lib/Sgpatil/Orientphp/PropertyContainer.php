@@ -115,7 +115,7 @@ abstract class PropertyContainer
 	public function getProperties()
 	{
 		$this->loadProperties();
-		return $this->properties;
+		return $this->columns;
 	}
 
 	/**
