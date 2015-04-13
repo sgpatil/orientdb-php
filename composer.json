@@ -1,0 +1,17 @@
+{
+  "name": "sgpatil/orientdb-php",
+  "type": "library",
+  "description": "PHP Wrapper for the Orientdb database REST interface",
+  "keywords": ["Orientdb","graph","database"],
+  "license": "MIT",
+  "authors": [
+    {"name": "Sumit Patil", "email": "sgpatil.2803@gmail.com"}
+  ],
+  "require": {
+    "php": ">=5.3.0",
+    "ext-curl": "*"
+  },
+  "autoload": {
+    "psr-0": {"Sgpatil\\Orientphp":"src/"}
+  }
+}
