@@ -1,8 +1,8 @@
 {
   "name": "sgpatil/orientdb-php",
   "type": "library",
-  "description": "PHP Wrapper for the Orientdb database REST interface",
-  "keywords": ["Orientdb","graph","database"],
+  "description": "PHP Wrapper for the Orientdb database (REST)",
+  "keywords": ["PHP Orientdb Driver","Orientdb","graph","database"],
   "license": "MIT",
   "authors": [
     {"name": "Sumit Patil", "email": "sgpatil.2803@gmail.com"}
