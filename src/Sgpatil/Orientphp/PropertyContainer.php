@@ -114,8 +114,8 @@ abstract class PropertyContainer
 	 */
 	public function getProperties()
 	{
-		$this->loadProperties();
-		return $this->columns;
+		//$this->loadProperties();
+		return $this->properties;
 	}
 
 	/**
@@ -199,8 +199,10 @@ abstract class PropertyContainer
 	 * @param mixed $value
 	 * @return PropertyContainer
 	 */
-	public function setProperty($property, $value)
+	public function setProperty($property)
 	{
+            $this->properties = $property;
+            return $this;
 		$this->loadProperties();
 		if ($value === null) {
 			$this->removeProperty($property);

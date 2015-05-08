@@ -4,7 +4,7 @@ namespace Sgpatil\Orientphp\Command;
 use Sgpatil\Orientphp\Command,
 	Sgpatil\Orientphp\Client,
 	Sgpatil\Orientphp\Exception,
-	Sgpatil\Orientphp\Node;
+	Sgpatil\Orientphp\Classes;
 
 /**
  * Get and populate a node
@@ -77,4 +77,9 @@ class GetNode extends Command
 			$this->throwException('Unable to retrieve node', $code, $headers, $data);
 		}
 	}
+
+    protected function getCommand() {
+        
+    }
+
 }

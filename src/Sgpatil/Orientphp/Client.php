@@ -534,7 +534,7 @@ class Client
 	 * @param Node $node
 	 * @return boolean
 	 */
-	public function loadNode(Node $node)
+	public function loadNode(Classes $node)
 	{
 		$cached = $this->getEntityCache()->getCachedEntity($node->getId(), 'node');
 		if ($cached) {
