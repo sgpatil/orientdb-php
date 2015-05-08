@@ -88,4 +88,3 @@ This will display server information.
 |
 |$property->custom('&lt;field_name&gt;');
 |$property->any('&lt;field_name&gt;');
->>>>>>> 4d0568c1c9c4e8728e42bc7c4cd9d65a891c2019
