@@ -94,8 +94,6 @@ class ExecuteCypherQuery extends Command {
     protected function getQuery() {
         $url = $this->query->getQuery();
         return preg_replace("/[\s]/", "%20", $url);
-        //$params = $this->query->getParameters();
-        //return preg_replace('|class|', $params['idn'], $url);
     }
 
 }
