@@ -1,0 +1,6 @@
+neo4jphp.phar
+build
+docs
+vendor/
+/.idea/
+composer.lock
