@@ -41,11 +41,7 @@ class Curl extends BaseTransport
 	{
             
                 $url = $this->getEndpoint().$path;
-<<<<<<< HEAD
                 //echo $url."\n ";
-=======
-                // echo $url."\n ";
->>>>>>> db673e4392db455edc41245f5d8560de3afdb960
                 
 		$options = array(
 			CURLOPT_URL => $url,
