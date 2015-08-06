@@ -39,7 +39,8 @@ class Curl extends BaseTransport
 	 */
 	public function makeRequest($method, $path, $data=array())
 	{
-            
+            //print_r($path);
+            //print_r($data);
                 $url = $this->getEndpoint().$path;
                 //echo $url."\n ";
                 

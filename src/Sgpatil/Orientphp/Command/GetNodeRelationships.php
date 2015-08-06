@@ -5,106 +5,123 @@ use Sgpatil\Orientphp\Command,
 	Sgpatil\Orientphp\Client,
 	Sgpatil\Orientphp\Exception,
 	Sgpatil\Orientphp\Relationship,
-	Sgpatil\Orientphp\Node;
-
+	Sgpatil\Orientphp\Node,
+    //Sgpatil\Orientphp\Batch\Query,
+    Sgpatil\Orientphp\Query\ResultSet;
 /**
  * Find relationships on a node
  */
 class GetNodeRelationships extends Command
 {
-	protected $node  = null;
-	protected $types = null;
-	protected $dir   = null;
+	
+    protected $query = null;
 
-	/**
-	 * Set the parameters to search
-	 *
-	 * @param Client $client
-	 * @param Node   $node
-	 * @param mixed  $types a string or array of strings
-	 * @param string $dir
-	 */
-	public function __construct(Client $client, Node $node, $types=array(), $dir=null)
-	{
-		parent::__construct($client);
+    /**
+     * Set the query to execute
+     *
+     * @param Client $client
+     * @param Query $query
+     */
+    public function __construct(Client $client, Node $query) {
+        parent::__construct($client);
+        $this->query = $query;
+    }
 
-		if (empty($dir)) {
-			$dir = Relationship::DirectionAll;
-		}
-		if (empty($types)) {
-			$types = array();
-		} else if (!is_array($types)) {
-			$types = array($types);
-		}
+    /**
+     * Return the data to pass
+     *
+     * @return mixed
+     */
+    protected function getData() {
 
-		$this->node = $node;
-		$this->dir = $dir;
-		$this->types = $types;
-	}
+        $data = array("transaction" => true, 
+              "operations" => array(
+                  array(
+                      "type"        => $this->getType(), 
+                      "language"    => $this->getLanguage(), 
+                      "script"     => [$this->getQuery() ]
+                  ) 
+               ) 
+             );
 
-	/**
-	 * Return the data to pass
-	 *
-	 * @return mixed
-	 */
-	protected function getData()
-	{
-		return null;
-	}
+//$data = array("transaction" => true, 
+//              "operations" => array(
+//                  array(
+//                      "type" => "c", 
+//                      "record" => array("@class" => "users",
+//                                        "name" => "test")
+//                  ) 
+//               ) 
+//             );
 
-	/**
-	 * Return the transport method to call
-	 *
-	 * @return string
-	 */
-	protected function getMethod()
-	{
-		return 'get';
-	}
+        return $data;
+    }
 
-	/**
-	 * Return the path to use
-	 *
-	 * @return string
-	 */
-	protected function getPath()
-	{
-		if (!$this->node->hasId()) {
-			throw new Exception('No node id specified');
-		}
+    protected function getTransaction() {
+        return $this->transaction;
+    }
+    
+     protected function getType() {
+        return "script";
+    }
+    
+     protected function getLanguage() {
+        return "sql";
+    }
+    
+    /**
+     * Return the transport method to call
+     *
+     * @return string
+     */
+    protected function getMethod() {
+        return 'post';
+    }
 
-		$path = '/node/'.$this->node->getId().'/relationships/'.$this->dir;
-		if (!empty($this->types)) {
-			$types = array_map('rawurlencode', $this->types);
-			$path .= '/'.join('&', $types);
-		}
+    /**
+     * Return the path to use
+     *
+     * @return string
+     */
+    protected function getPath() {
+        $url = $this->client->hasCapability(Client::CapabilityCypher);
+//		if (!$url) {
+//			throw new Exception('Cypher unavailable');
+//		}
+//              return preg_replace('/^.+\/db\/data/', '', $url);
 
-		return $path;
-	}
+        return '';
+    }
 
-	/**
-	 * Use the results
-	 *
-	 * @param integer $code
-	 * @param array   $headers
-	 * @param array   $data
-	 * @return integer on failure
-	 */
-	protected function handleResult($code, $headers, $data)
-	{
-		if ((int)($code / 100) == 2) {
-			$rels = array();
-			foreach ($data as $relData) {
-				$rels[] = $this->getEntityMapper()->makeRelationship($relData);
-			}
-			return $rels;
-		} else {
-			$this->throwException('Unable to retrieve node relationships', $code, $headers, $data);
-		}
-	}
+    /**
+     * Use the results
+     *
+     * @param integer $code
+     * @param array   $headers
+     * @param array   $data
+     * @return integer on failure
+     */
+    protected function handleResult($code, $headers, $data) {
+//		if ((int)($code / 100) != 2) {
+//			$this->throwException('Unable to execute query', $code, $headers, $data);
+//		}
+        //return $data; // this line is added to return  array for migration select
+        return new ResultSet($this->client, $data);
+    }
 
     protected function getCommand() {
-        
+        return '/batch' . $this->client->getTransport()->getDatabaseName();
     }
+
+    /**
+     * Return the query to pass
+     *
+     * @return mixed
+     */
+    protected function getQuery() {
+        ///$url = $this->query->getQuery();
+        return "test";
+    }
+
 
 }

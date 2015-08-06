@@ -112,7 +112,7 @@ class Relationship extends PropertyContainer
 	public function save()
 	{
 		$this->client->saveRelationship($this);
-		$this->useLazyLoad(false);
+		//$this->useLazyLoad(false);
 		return $this;
 	}
 
@@ -122,7 +122,7 @@ class Relationship extends PropertyContainer
 	 * @param Node $end
 	 * @return Relationship
 	 */
-	public function setEndNode(Node $end)
+	public function setEndNode($end)
 	{
 		$this->end = $end;
 		return $this;
@@ -134,7 +134,7 @@ class Relationship extends PropertyContainer
 	 * @param Node $start
 	 * @return Relationship
 	 */
-	public function setStartNode(Node $start)
+	public function setStartNode($start)
 	{
 		$this->start = $start;
 		return $this;

@@ -30,6 +30,16 @@ class Node extends PropertyContainer
 		}
 		return $this;
 	}
+        
+        /**
+	 * Return the class name
+	 *
+	 * @return mixed
+	 */
+	public function getName()
+	{
+		return $this->node->getName();
+	}
 
 	/**
 	 * Add labels to this node
@@ -129,7 +139,7 @@ class Node extends PropertyContainer
 	 */
 	public function load()
 	{
-		$this->client->loadNode($this);
+		//$this->client->loadNode($this);
 		return $this;
 	}
 

@@ -2,7 +2,7 @@
 namespace Sgpatil\Orientphp\Batch;
 
 use Sgpatil\Orientphp;
-
+use Sgpatil\Orientphp\PropertyContainer;
 /**
  * Represents a Cypher query string and variables
  * Query the database using Cypher. For query syntax, please refer
@@ -11,7 +11,7 @@ use Sgpatil\Orientphp;
  * Latest documentation:
  * http://docs.neo4j.org/chunked/snapshot/cypher-query-lang.html
  */
-class Query implements Orientphp\Query
+class Query  extends PropertyContainer implements Orientphp\Query
 {
 	protected $client = null;
 	protected $template = null;
@@ -66,4 +66,33 @@ class Query implements Orientphp\Query
 
 		return $this->result;
 	}
+        
+        /**
+	 * Get the first relationship of this node that matches the given criteria
+	 *
+	 * @param mixed  $types string or array of strings
+	 * @param string $dir
+	 * @return Relationship
+	 */
+	public function getFirstRelationship($types=array(), $dir=null)
+	{
+		$rels = $this->client->getNodeRelationships($this, $types, $dir);
+		if (count($rels) < 1) {
+			return null;
+		}
+		return $rels[0];
+	}
+
+    public function delete() {
+        
+    }
+
+    public function load() {
+        
+    }
+
+    public function save() {
+        
+    }
+
 }

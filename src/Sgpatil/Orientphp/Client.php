@@ -626,6 +626,8 @@ class Client
 	public function makeRelationship($properties=array())
 	{
 		$relFactory = $this->relFactory;
+                
+               
 		$rel = $relFactory($this, $properties);
 		if (!($rel instanceof Relationship)) {
 			throw new Exception('Relationship factory did not return a Relationship object.');
