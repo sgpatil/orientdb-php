@@ -89,12 +89,16 @@ class Curl extends BaseTransport
 		$response = curl_exec($ch);
                 
                 //print_r($response);
-
+                
 		$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 		$headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
                      
 		if ($response === false) {
 			throw new Exception("Can't open connection to ".$url);
+		}
+                
+                if ($code === 401) {
+			throw new Exception("database '".trim($this->getDatabaseName(), "/")."' does not exist. Please check database configuration. ");
 		}
 
 		if (!$code) {
