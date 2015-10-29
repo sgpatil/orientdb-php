@@ -31,7 +31,7 @@ class CreateProperty extends Command
 	 */
 	protected function getData()
 	{
-            return $this->classes->getProperties() ?: null;
+            return $this->classes->getProperties() ?$this->classes->getProperties(): null;
 	}
         
         /**
