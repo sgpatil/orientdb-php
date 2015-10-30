@@ -15,6 +15,7 @@ use Sgpatil\Orientphp\Exception,
 class ExecuteBatchQuery extends Command {
 
     protected $query = null;
+    protected $transaction = false;
 
     /**
      * Set the query to execute
@@ -34,7 +35,7 @@ class ExecuteBatchQuery extends Command {
      */
     protected function getData() {
 
-        $data = array("transaction" => true, 
+        $data = array("transaction" => $this->getTransaction(), 
               "operations" => array(
                   array(
                       "type"        => $this->getType(), 
@@ -44,21 +45,15 @@ class ExecuteBatchQuery extends Command {
                ) 
              );
 
-//$data = array("transaction" => true, 
-//              "operations" => array(
-//                  array(
-//                      "type" => "c", 
-//                      "record" => array("@class" => "users",
-//                                        "name" => "test")
-//                  ) 
-//               ) 
-//             );
-
         return $data;
     }
 
     protected function getTransaction() {
         return $this->transaction;
+    }
+    
+    public function setTransaction($val = true) {
+        $this->transaction = $val;
     }
     
      protected function getType() {

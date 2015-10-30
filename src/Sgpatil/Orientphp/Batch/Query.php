@@ -7,9 +7,6 @@ use Sgpatil\Orientphp\PropertyContainer;
  * Represents a Cypher query string and variables
  * Query the database using Cypher. For query syntax, please refer
  * to the Cypher documentation for your server version.
- *
- * Latest documentation:
- * http://docs.neo4j.org/chunked/snapshot/cypher-query-lang.html
  */
 class Query  extends PropertyContainer implements Orientphp\Query
 {
