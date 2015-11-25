@@ -219,6 +219,12 @@ class Classes extends Builder
 		//$this->useLazyLoad(false);
 		return $this;
 	}
+        
+        public function saveProperties()
+	{   
+                $this->client->saveProperties($this);
+		return $this;
+	}
 
 	/**
 	 * Be sure to add our properties to the things to serialize
