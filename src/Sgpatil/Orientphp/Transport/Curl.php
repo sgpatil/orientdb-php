@@ -101,6 +101,15 @@ class Curl extends BaseTransport
 			throw new Exception("database '".trim($this->getDatabaseName(), "/")."' does not exist. Please check database configuration. ");
 		}
 
+
+		if ($code===500) {
+//			$code = 500;
+//			$headerSize = 0;
+			$result_content = explode("\r\n\r\n",$response,2)[1];
+			$result_array =  json_decode($result_content,true);
+			throw new Exception($result_array['errors'][0]['content'],$result_array['errors'][0]['code']);
+		}
+
 		if (!$code) {
 			$code = 500;
 			$headerSize = 0;
