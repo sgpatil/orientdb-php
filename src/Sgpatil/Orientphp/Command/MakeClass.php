@@ -53,7 +53,16 @@ class CreateClass extends Command
 	{
 		return '/class/graphdb2/test4';
 	}
-
+	
+        /**
+	 * Return the command
+	 *
+	 * @return string
+	 */
+	protected function getCommand()
+	{
+		return '/class'.$this->client->getTransport()->getDatabaseName();
+	}
 	/**
 	 * Use the results
 	 *
