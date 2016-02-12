@@ -67,7 +67,7 @@ class CreateClass extends Command
 	}
         
         /**
-	 * Return the path to use
+	 * Return the command
 	 *
 	 * @return string
 	 */
@@ -92,9 +92,6 @@ class CreateClass extends Command
 			$this->throwError('Unable to create Class', $code, $headers, $data);
 		}
 
-		//$nodeId = $this->getEntityMapper()->getIdFromUri($headers['Location']);
-		//$this->node->setId($nodeId);
-		//$this->getEntityCache()->setCachedEntity($this->node);
 		return true;
 	}
 }

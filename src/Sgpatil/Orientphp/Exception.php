@@ -10,6 +10,9 @@ class Exception extends \Exception
 	{
 		$this->headers = $headers;
 		$this->data = $data;
+
+        $message = $message . $this->getTraceAsString();
+
 		parent::__construct($message, $code);
 	}
 

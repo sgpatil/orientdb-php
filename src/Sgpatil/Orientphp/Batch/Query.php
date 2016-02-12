@@ -3,11 +3,8 @@ namespace Sgpatil\Orientphp\Batch;
 
 use Sgpatil\Orientphp;
 use Sgpatil\Orientphp\PropertyContainer;
-/**
- * Represents a Cypher query string and variables
- * Query the database using Cypher. For query syntax, please refer
- * to the Cypher documentation for your server version.
- */
+
+
 class Query  extends PropertyContainer implements Orientphp\Query
 {
 	protected $client = null;
@@ -19,7 +16,7 @@ class Query  extends PropertyContainer implements Orientphp\Query
 	/**
 	 * Set the template to use
 	 *
-	 * @param Neo4j\Client $client
+	 * @param Orientdb\Client $client
 	 * @param string $template A Cypher query string or template
 	 * @param array $vars Replacement vars to inject into the query
 	 */
@@ -53,7 +50,7 @@ class Query  extends PropertyContainer implements Orientphp\Query
 	/**
 	 * Retrieve the query results
 	 *
-	 * @return Neo4j\Query\ResultSet
+	 * @return Orientdb\Query\ResultSet
 	 */
 	public function getResultSet()
 	{
