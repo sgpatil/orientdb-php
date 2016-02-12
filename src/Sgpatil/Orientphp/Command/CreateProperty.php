@@ -85,14 +85,9 @@ class CreateProperty extends Command
 	 */
 	protected function handleResult($code, $headers, $data)
 	{      
-            
 		if ((int)($code / 100) != 2) {
-			$this->throwError('Unable to create Property', $code, $headers, $data);
+			$this->throwException('Unable to Create Property', $code, $headers, $data);
 		}
-
-		//$classesId = $this->getEntityMapper()->getIdFromUri($headers['Location']);
-		//$this->classes->setId($classesId);
-		//$this->getEntityCache()->setCachedEntity($this->classes);
 		return true;
 	}
 }
