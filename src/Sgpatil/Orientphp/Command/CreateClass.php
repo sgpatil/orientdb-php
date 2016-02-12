@@ -67,7 +67,7 @@ class CreateClass extends Command
 	}
         
         /**
-	 * Return the path to use
+	 * Return the command
 	 *
 	 * @return string
 	 */
