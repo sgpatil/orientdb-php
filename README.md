@@ -58,12 +58,6 @@ This will display server information.
 ```
 ### Supporting Datatype
 
-Commands | r
------------- | 
-Content from cell 1 | 
-Content in the first column | 
-
-
 | Commands  |
 |-----------|
 |$property->short('&lt;field_name&gt;'); 	
